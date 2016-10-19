@@ -1,5 +1,7 @@
 body.pushable>.pusher {
-	background-image: url('/img/cooper.jpg');
+	background-image: url('/img/radial.jpg');
+	background-position: center;
+	background-size: cover;
 }
 
 .hidden.menu {

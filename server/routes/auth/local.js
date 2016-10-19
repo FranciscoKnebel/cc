@@ -19,9 +19,13 @@ module.exports = function authLocal(app, passport, modules) {
 		res.redirect('/login');
 	});
 
-	/* app.post('/signup', modules.isLoggedOut, passport.authenticate('local-signup', {
-		successRedirect: '/admin',
+	app.get('/signup', modules.isLoggedOut, (req, res) => {
+		res.render('signup.ejs', { message: req.flash('signupMessage') });
+	});
+
+	app.post('/signup', modules.isLoggedOut, passport.authenticate('local-signup', {
+		successRedirect: '/app',
 		failureRedirect: '/login',
-		failureFlash: true
-	})); */
+		failureFlash: true,
+	}));
 };
