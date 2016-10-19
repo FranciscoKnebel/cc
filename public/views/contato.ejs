@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cooper Comics</title>
+
+		<% include ../snippets/head %>
+		<% include ../snippets/analytics %>
+		<% include ../snippets/css %>
+	</head>
+	<body>
+		<% include ../snippets/navbar %>
+
+		<div class="pusher">
+			<div class="ui inverted vertical masthead center aligned segment">
+				<% include ../snippets/navbar-fixed %>
+
+				<div class="ui text container">
+					<h1 class="ui inverted header">
+						Cooper Comics
+					</h1>
+				</div>
+			</div>
+
+			<div class="ui inverted red center aligned segment">
+				<div class="ui equal width stackable grid">
+					<div class="center aligned column">
+						<% if(message) { %>
+							<div class="ui icon <%= message.type %> message">
+								<i class="inbox icon"></i>
+								<i class="close icon"></i>
+								<div class="content">
+									<div class="header">
+										<% if(message.type === "success") { %>Sucesso!<% } %>
+										<% if(message.type === "error") { %>Erro ao enviar e-mail.<% } %>
+									</div>
+									<p><%= message.text %></p>
+								</div>
+							</div>
+						<% } %>
+					</div>
+					<div class="left aligned column">
+						<div class="ui medium inverted header">Escreva sua mensagem</div>
+						<div class="ui secondary olive inverted segment">
+							<form class="ui form" action="/contato/email" method="post" enctype="application/json">
+								<div class="field">
+									<div class="ui labeled input">
+									  <div class="ui black label">
+									    Nome
+									  </div>
+										<input required type="text" name="emailname" id='contactname' placeholder="Seu nome">
+									</div>
+								</div>
+								<div class="field">
+									<div class="ui labeled input">
+										<div class="ui black label">
+											E-mail
+										</div>
+										<input required type="email" name="emailaddress" placeholder="email@exemplo.com">
+									</div>
+								</div>
+								<div class="field">
+									<div class="ui labeled input">
+										<div class="ui black label">
+											Assunto
+										</div>
+										<input required type="text" name="emailsubject" placeholder="Assunto da mensagem">
+									</div>
+								</div>
+								<div class="field">
+									<a class="ui big black ribbon label">Message</a>
+									<textarea required rows="7" name="emailtext" placeholder="Deixe sua mensagem aqui"></textarea>
+								</div>
+								<button class="ui secondary submit button" type="submit">Enviar</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<% include ../snippets/js %>
+		<% if(message) { %>
+			<script type="text/javascript">
+				$('.message .close').on('click', function() {
+					$(this).closest('.message').transition('fade');
+				});
+			</script>
+		<% } %>
+	</body>
+</html>

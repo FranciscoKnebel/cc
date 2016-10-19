@@ -19,6 +19,10 @@ module.exports = function routes(app, dirname, passport) {
 		res.render('contato.ejs', { message: false });
 	});
 
+	app.get('/template', (req, res) => {
+		res.render('template.ejs');
+	});
+
 	app.get('*', (req, res) => {
 		res.status(404).render('404.ejs');
 	});

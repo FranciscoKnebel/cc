@@ -23,7 +23,7 @@ module.exports = function email(app) {
 		const time = getTimeForMail();
 		const mailOptions = {
 			from: `${req.body.emailname} &lt;${req.body.emailaddress}&gt;`,
-			to: 'contato@desenfila.com.br',
+			to: 'contato.coopercomics@gmail.com',
 			subject: `${req.body.emailsubject}/${time}`,
 			text: req.body.emailtext,
 			html: `Email de ${req.body.emailname} &lt;${req.body.emailaddress}&gt;<br>Envio às ${time}<br><br><br>Corpo:<br>${req.body.emailtext}<br><hr>Esse é um e-mail gerado automaticamente.`,
@@ -36,7 +36,7 @@ module.exports = function email(app) {
 				res.status(500).render('contato.ejs', {
 					message: {
 						text: error.message,
-						type: 'success',
+						type: 'error',
 					},
 				});
 				return;
