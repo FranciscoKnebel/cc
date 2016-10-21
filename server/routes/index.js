@@ -12,18 +12,18 @@ module.exports = function routes(app, dirname, passport) {
 	api(app, modules);
 
 	app.get('/', (req, res) => {
-		res.render('index.ejs');
+		res.render('index.ejs', { user: req.user });
+	});
+
+	app.get('/app', (req, res) => {
+		res.render('template.ejs', { user: req.user });
 	});
 
 	app.get('/contato', (req, res) => {
-		res.render('contato.ejs', { message: false });
-	});
-
-	app.get('/template', (req, res) => {
-		res.render('template.ejs');
+		res.render('contato.ejs', { user: req.user, message: false });
 	});
 
 	app.get('*', (req, res) => {
-		res.status(404).render('404.ejs');
+		res.status(404).render('404.ejs', { user: req.user });
 	});
 };

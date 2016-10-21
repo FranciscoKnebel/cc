@@ -1,5 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/user');
+const User = require('../models/usuario');
+const Cliente = require('../models/cliente');
 
 module.exports = function localAuth(passport) {
 	// LOCAL LOGIN
@@ -34,7 +35,7 @@ module.exports = function localAuth(passport) {
 		passReqToCallback: true,
 	}, (req, email, password, done) => {
 		process.nextTick(() => {
-			User.findOne({
+			Cliente.findOne({
 				email,
 			}, (err, existingUser) => {
 				if (err) {
@@ -57,7 +58,7 @@ module.exports = function localAuth(passport) {
 					});
 				} else { //  We're not logged in, so we're creating a brand new user.
 					// create the user
-					const newUser = new User();
+					const newUser = new Cliente();
 
 					newUser.email = email;
 					newUser.password = newUser.generateHash(password);

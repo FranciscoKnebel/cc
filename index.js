@@ -49,7 +49,7 @@ app.use(passport.session());
 app.use(flash());
 
 // pass passport auth for configuration
-// require('./server/auth/passport')(passport);
+require('./server/auth/passport')(passport);
 
 // pass routes
 routes(app, __dirname, passport);
