@@ -1,19 +1,28 @@
 const mongoose = require('mongoose');
-const util = require('util');
+const bcrypt = require('bcrypt-nodejs');
 
-function AbstractUserSchema() {
-	mongoose.Schema.apply(this, arguments);
+var userSchema = new mongoose.Schema({
+	name: String,
+	address: String,
+	CPF: String,
+	phone: String,
+	email: String,
+	password: String,
+}, {
+	timestamps: {
+		createdAt: 'createdAt',
+		updatedAt: 'updatedAt',
+	},
+	collection : 'usuarios',
+	discriminatorKey : '_type',
+});
 
-	this.add({
-		name: String,
-		address: String,
-		CPF: String,
-		phone: String,
-		email: String,
-		password: String,
-	});
-}
+userSchema.methods.generateHash = function generateHash(password) {
+	return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 
-util.inherits(AbstractUserSchema, mongoose.Schema);
+userSchema.methods.validPassword = function validPassword(password) {
+	return bcrypt.compareSync(password, this.password);
+};
 
-module.exports = AbstractUserSchema;
+module.exports = userSchema;

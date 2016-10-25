@@ -15,7 +15,7 @@ module.exports = function routes(app, dirname, passport) {
 		res.render('index.ejs', { user: req.user });
 	});
 
-	app.get('/app', (req, res) => {
+	app.get('/app', modules.isLoggedIn, (req, res) => {
 		res.render('template.ejs', { user: req.user });
 	});
 

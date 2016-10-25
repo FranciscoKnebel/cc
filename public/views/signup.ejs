@@ -14,6 +14,7 @@
 	<body>
 		<div class="ui container middle aligned center aligned grid" style="padding-top: 100px;">
 			<div class="sixteen wide mobile ten wide computer column">
+				<h1 style="color: white;">Signup</h1>
 				<form class="ui large form error" action="/signup" method="post">
 					<div class="ui stacked segment">
 						<div class="required field">
@@ -33,6 +34,7 @@
 						<button type="submit" class="ui teal submit button">Sign up</button>
 					</div>
 					<% if (message.length > 0) { %>
+						<% console.log(message); %>
 						<!-- show any messages that come back with authentication -->
 						<div class="ui error message">
 							<div class="header">Oops!</div>

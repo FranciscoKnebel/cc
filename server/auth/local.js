@@ -1,5 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/usuario');
+const Administrador = require('../models/administrador');
 const Cliente = require('../models/cliente');
 
 module.exports = function localAuth(passport) {
@@ -9,7 +9,7 @@ module.exports = function localAuth(passport) {
 		passwordField: 'password',
 		passReqToCallback: true,
 	}, (req, email, password, done) => {
-		User.findOne({
+		Cliente.findOne({
 			email,
 		}, (err, user) => {
 			if (err) {
@@ -17,14 +17,30 @@ module.exports = function localAuth(passport) {
 			}
 
 			if (!user) {
-				return done(null, false, req.flash('loginMessage', 'Usuário não encontrado.'));
-			}
+				Administrador.findOne({
+					email,
+				}, (err2, admin) => {
+					if (err2) {
+						return done(err2);
+					}
 
-			if (!user.validPassword(password)) {
-				return done(null, false, req.flash('loginMessage', 'Senha incorreta.'));
-			}
+					if (!admin) {
+						return done(null, false, req.flash('loginMessage', 'Usuário não encontrado.'));
+					}
 
-			return done(null, user);
+					if (!admin.validPassword(password)) {
+						return done(null, false, req.flash('loginMessage', 'Senha incorreta.'));
+					}
+
+					return done(null, admin);
+				});
+			} else {
+				if (!user.validPassword(password)) {
+					return done(null, false, req.flash('loginMessage', 'Senha incorreta.'));
+				}
+
+				return done(null, user);
+			}
 		});
 	}));
 

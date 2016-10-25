@@ -1,8 +1,9 @@
+const mongoose = require('mongoose');
+const extend = require('mongoose-schema-extend');
 const AbstractUserSchema = require('./abstractUsuario');
-const Usuario = require('./usuario');
 
-const clienteSchema = new AbstractUserSchema({
-	exemplo: String,
+const clienteSchema = AbstractUserSchema.extend({
+	exemplo: String
 });
 
-module.exports = Usuario.discriminator('Cliente', clienteSchema);
+module.exports = mongoose.model('Cliente', clienteSchema);

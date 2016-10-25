@@ -1,7 +1,7 @@
 {
   "name": "coopercomics",
   "version": "1.0.0",
-  "description": "",
+  "description": "Bisnaga",
   "main": "index.js",
   "scripts": {
     "lint": "npm run lint-js",
@@ -31,8 +31,10 @@
     "express-minify": "^0.2.0",
     "express-session": "^1.14.0",
     "helmet": "^2.1.2",
+    "lodash": "^4.16.4",
     "mongoose": "^4.5.9",
     "mongoose-autopopulate": "^0.4.0",
+    "mongoose-schema-extend": "^0.2.2",
     "mongoose-super": "0.0.3",
     "morgan": "^1.7.0",
     "nodemailer": "^2.6.4",
