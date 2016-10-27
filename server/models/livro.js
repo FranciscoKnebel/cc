@@ -8,6 +8,10 @@ const bookSchema = mongoose.Schema({
 	publisher: String,
 	edition: String,
 	images: [String],
+	auction: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Leilao',
+	},
 }, {
 	timestamps: {
 		createdAt: 'createdAt',

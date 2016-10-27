@@ -3,7 +3,10 @@
 const mongoose = require('mongoose');
 
 const auctionSchema = mongoose.Schema({
-	seller: ObjectID de vendedor,
+	seller: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Usuario',
+	}],
 	state: String,
 	description: String,
 	limitDate: Date,
@@ -11,14 +14,23 @@ const auctionSchema = mongoose.Schema({
 	initialPrice: Number,
 	currentPrice: Number,
 	finalPrice: Number,
-	topBidder: ObjectID de comprador,
-	bidders: [ObjectID de comprador],
+	topBidder: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Usuario',
+	},
 	bids: [
 		{
 			bidValue: Number,
-			bidder: ObjectID de comprador
-		}
+			bidder: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'Usuario',
+			},
+		},
 	],
+	book: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Livro',
+	}
 }, {
 	timestamps: {
 		createdAt: 'createdAt',
@@ -26,4 +38,4 @@ const auctionSchema = mongoose.Schema({
 	},
 });
 
-module.exports = mongoose.model('Leilão', auctionSchema);
+module.exports = mongoose.model('Leilao', auctionSchema);
