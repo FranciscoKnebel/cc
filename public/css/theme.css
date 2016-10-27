@@ -1,5 +1,51 @@
 body.pushable>.pusher {
-	background-image: url('/img/radial.jpg');
-	background-position: center;
-	background-size: cover;
+  background-image: url('/img/radial.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+.header_nome {
+	padding-left: 1em;
+}
+
+.ui.vertical.stripe {
+	padding: 8em 0em;
+}
+.ui.vertical.stripe h3 {
+	font-size: 2em;
+}
+.ui.vertical.stripe .button + h3,
+.ui.vertical.stripe p + h3 {
+	margin-top: 3em;
+}
+.ui.vertical.stripe .floated.image {
+	clear: both;
+}
+.ui.vertical.stripe p {
+	font-size: 1.33em;
+}
+.ui.vertical.stripe .horizontal.divider {
+	margin: 3em 0em;
+}
+
+.quote.stripe.segment {
+	padding: 0em;
+}
+.quote.stripe.segment .grid .column {
+	padding-top: 5em;
+	padding-bottom: 5em;
+}
+
+.ui.form input {
+	padding: 0.5em !important;
+}
+
+.ui.vertical.footer.segment {
+	margin-top: 5em;
+  padding: 5em 0em;
+}
+
+.ui.segment.maisinfo {
+	background-color: rgba(50, 0, 255, 0.6);
+	padding-top: 3em;
 }

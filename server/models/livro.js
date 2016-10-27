@@ -7,6 +7,7 @@ const bookSchema = mongoose.Schema({
 	title: String,
 	publisher: String,
 	edition: String,
+	images: [String],
 }, {
 	timestamps: {
 		createdAt: 'createdAt',

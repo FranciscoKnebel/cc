@@ -68,9 +68,9 @@ module.exports = function localAuth(passport) {
 					user.password = user.generateHash(password);
 					user.save((err2) => {
 						if (err2)	{
-							throw err2;
+							return done(err2);
 						}
-						return done(null, user);
+						return done(null, user, req.flash('appMessage', 'Conta registrada com sucesso.'));
 					});
 				} else { //  We're not logged in, so we're creating a brand new user.
 					// create the user
@@ -81,10 +81,10 @@ module.exports = function localAuth(passport) {
 
 					newUser.save((err2) => {
 						if (err2) {
-							throw err;
+							return done(err2);
 						}
 
-						return done(null, newUser);
+						return done(null, newUser, req.flash('appMessage', 'Conta registrada com sucesso.'));
 					});
 				}
 			});

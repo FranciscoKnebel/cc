@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cooper Comics</title>
+
+		<% include ../snippets/head %>
+		<% include ../snippets/analytics %>
+		<% include ../snippets/css %>
+	</head>
+	<body>
+		<% include ../snippets/navbar %>
+
+		<div class="pusher">
+			<div class="ui inverted vertical masthead center aligned segment">
+				<% include ../snippets/navbar-fixed %>
+
+				<div class="ui text container">
+					<h1 class="ui inverted header">
+						Cooper Comics
+					</h1>
+					<h2>Criar Leilão</h2>
+				</div>
+			</div>
+			<div class="ui container">
+				<div class="ui segment">
+					<h1>Livro</h1>
+					<div class="ui form">
+					  <div class="equal width fields">
+					    <div class="field">
+					      <label>Autor</label>
+					      <input type="text" placeholder="Autor" name="autor">
+					    </div>
+					    <div class="field">
+					      <label>Título</label>
+					      <input type="text" placeholder="Título" name="titulo">
+					    </div>
+							<div class="field">
+					      <label>Editora</label>
+					      <input type="text" placeholder="Editora" name="editora">
+					    </div>
+							<div class="field">
+								<label>Edição</label>
+								<input type="text" placeholder="Edição" name="edicao">
+							</div>
+					  </div>
+
+						<h1>Leilao</h1>
+						<div class="inline fields">
+							<div class="field">
+								<label>Preço Inicial do Leilão</label>
+							</div>
+							<div classs="field">
+								<label for=""></label>
+								<input type="number" name="precoInteiros" min="0" title="Only numbers are allowed" />
+							</div>
+							<div class="field">
+								<label for=""></label>
+								<input type="number" name="precoCentavos" min="0" max="99" size="2" title="Only numbers are allowed" />
+							</div>
+						</div>
+
+						<div class="equal width fields">
+							<div class="field">
+								<label for="">Descrição</label>
+						    <textarea></textarea>
+						  </div>
+						</div>
+					</div>
+
+					state: String,
+					initialPrice: Number,
+					actualPrice: Number,
+					description: String,
+					price: Number,
+					limitDate: Date,
+					maxDate: Date,
+				</div>
+			</div>
+			<% include ../snippets/footer %>
+		</div>
+
+		<% include ../snippets/js %>
+	</body>
+</html>

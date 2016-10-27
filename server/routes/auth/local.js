@@ -1,7 +1,7 @@
 module.exports = function authLocal(app, passport, modules) {
 	app.get('/logout', modules.isLoggedIn, (req, res) => {
 		req.logout();
-		
+
 		res.redirect('/');
 	});
 
@@ -25,6 +25,7 @@ module.exports = function authLocal(app, passport, modules) {
 
 	app.post('/signup', modules.isLoggedOut, passport.authenticate('local-signup', {
 		successRedirect: '/app',
+		successFlash: true,
 		failureRedirect: '/signup',
 		failureFlash: true,
 	}));
