@@ -3,13 +3,22 @@
 const mongoose = require('mongoose');
 
 const auctionSchema = mongoose.Schema({
+	seller: ObjectID de vendedor,
 	state: String,
-	initialPrice: Number,
-	actualPrice: Number,
 	description: String,
-	price: Number,
 	limitDate: Date,
 	maxDate: Date,
+	initialPrice: Number,
+	currentPrice: Number,
+	finalPrice: Number,
+	topBidder: ObjectID de comprador,
+	bidders: [ObjectID de comprador],
+	bids: [
+		{
+			bidValue: Number,
+			bidder: ObjectID de comprador
+		}
+	],
 }, {
 	timestamps: {
 		createdAt: 'createdAt',
