@@ -64,6 +64,11 @@ module.exports = function localAuth(passport) {
 
 				if (req.user) {
 					const user = req.user;
+
+					user.name = req.body.nome;
+					user.address = req.body.endereco;
+					user.CPF = req.body.CPF;
+					user.phone = req.body.telefone;
 					user.email = email;
 					user.password = user.generateHash(password);
 					user.save((err2) => {
@@ -76,6 +81,10 @@ module.exports = function localAuth(passport) {
 					// create the user
 					const newUser = new Cliente();
 
+					newUser.name = req.body.nome;
+					newUser.address = req.body.endereco;
+					newUser.CPF = req.body.CPF;
+					newUser.phone = req.body.telefone;
 					newUser.email = email;
 					newUser.password = newUser.generateHash(password);
 

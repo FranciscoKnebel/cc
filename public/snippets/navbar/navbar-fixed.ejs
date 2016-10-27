@@ -1,0 +1,5 @@
+<% if(typeof user !== "undefined") { %>
+	<% include navbar-fixed-auth %>
+<% } else { %>
+	<% include navbar-fixed-unauth %>
+<% } %>

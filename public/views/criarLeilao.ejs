@@ -8,11 +8,11 @@
 		<% include ../snippets/css %>
 	</head>
 	<body>
-		<% include ../snippets/navbar %>
+		<% include ../snippets/navbar/navbar %>
 
 		<div class="pusher">
 			<div class="ui inverted vertical masthead center aligned segment">
-				<% include ../snippets/navbar-fixed %>
+				<% include ../snippets/navbar/navbar-fixed %>
 
 				<div class="ui text container">
 					<h1 class="ui inverted header">
@@ -55,7 +55,7 @@
 							</div>
 							<div class="field">
 								<label for=""></label>
-								<input type="number" name="precoCentavos" min="0" max="99" size="2" title="Only numbers are allowed" />
+								<input type="text" name="precoCentavos" min="0" max="99" size="2" maxlength="2" title="Only numbers are allowed" />
 							</div>
 						</div>
 
@@ -66,19 +66,12 @@
 						  </div>
 						</div>
 					</div>
-
-					state: String,
-					initialPrice: Number,
-					actualPrice: Number,
-					description: String,
-					price: Number,
-					limitDate: Date,
-					maxDate: Date,
 				</div>
 			</div>
 			<% include ../snippets/footer %>
 		</div>
 
 		<% include ../snippets/js %>
+		<script src="/js/formvalidation/criarLeilão.js" charset="utf-8"></script>
 	</body>
 </html>

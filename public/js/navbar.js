@@ -1,13 +1,13 @@
-$(document).ready(function() {
+$(document).ready(() => {
   // fix menu when passed
 	$('.masthead').visibility({
 		once: false,
-		onBottomPassed: function() {
+		onBottomPassed() {
 			$('.fixed.menu').transition('fade in');
 		},
-		onBottomPassedReverse: function() {
+		onBottomPassedReverse() {
 			$('.fixed.menu').transition('fade out');
-		}
+		},
 	});
 
   // create sidebar and attach to menu open

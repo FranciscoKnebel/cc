@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Cooper Comics</title>
+
 		<% include ../snippets/head %>
 		<% include ../snippets/analytics %>
 		<% include ../snippets/css %>
@@ -21,37 +23,50 @@
 							<label>Nome completo</label>
 							<div class="ui left icon input">
 								<i class="write icon"></i>
-								<input required type="text" placeholder="Nome completo" name="nome">
+								<input type="text" placeholder="Nome completo" name="nome" autocomplete="on">
 							</div>
 						</div>
 						<div class="required field">
 							<label>Endereço</label>
 							<div class="ui left icon input">
 								<i class="home icon"></i>
-								<input required type="text" placeholder="Endereço" name="endereco">
+								<input type="text" placeholder="Endereço" name="endereco" autocomplete="on">
+							</div>
+						</div>
+						<div class="required field">
+							<label>CPF</label>
+							<div class="ui left icon input">
+								<i class="hashtag icon"></i>
+								<input type="text" placeholder="CPF" name="CPF" autocomplete="on">
 							</div>
 						</div>
 						<div class="required field">
 							<label>Telefone</label>
 							<div class="ui left icon input">
 								<i class="call icon"></i>
-								<input required type="tel" placeholder="Telefone" name="telefone">
+								<input type="tel" placeholder="Telefone" name="telefone" autocomplete="on">
 							</div>
 						</div>
 						<div class="required field">
 							<label>Email</label>
 							<div class="ui left icon input">
 								<i class="user icon"></i>
-								<input required type="email" placeholder="E-mail" name="email">
+								<input type="email" placeholder="E-mail" name="email">
 							</div>
 						</div>
 						<div class="required field">
 							<label>Senha</label>
 							<div class="ui left icon input">
 								<i class="lock icon"></i>
-								<input required type="password" placeholder="Senha" name="password">
+								<input type="password" placeholder="Senha" name="password">
 							</div>
 						</div>
+						<div class="inline field">
+					    <div class="ui checkbox">
+					      <input name="terms" type="checkbox">
+					      <label>Você concorda com os <a href="#" target="_blank">termos e condições</a> da Cooper Comics.</label>
+					    </div>
+					  </div>
 						<button type="submit" class="ui teal submit button">Se inscrever</button>
 					</div>
 					<% if (message.length > 0) { %>
@@ -87,5 +102,8 @@
 				</div>
 			</div>
 		</div>
+
+		<% include ../snippets/js %>
+		<script src="/js/formvalidation/signup.js" charset="utf-8"></script>
 	</body>
 </html>
