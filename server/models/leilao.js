@@ -1,12 +1,13 @@
 /* eslint new-cap: ["error", { "capIsNew": false }] */
-
+'use strict';
 const mongoose = require('mongoose');
+const Book = require('./livro');
 
 const auctionSchema = mongoose.Schema({
-	seller: [{
+	seller: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Usuario',
-	}],
+	},
 	state: String,
 	description: String,
 	limitDate: Date,
@@ -30,12 +31,45 @@ const auctionSchema = mongoose.Schema({
 	book: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Livro',
-	}
+	},
 }, {
 	timestamps: {
 		createdAt: 'createdAt',
 		updatedAt: 'updatedAt',
 	},
 });
+
+auctionSchema.methods.newAuction = function newAuction(form, seller, done) {
+	let auction = this;
+
+	auction.seller = seller;
+	auction.state = 'pending';
+	auction.description = form.descricao;
+	auction.initialPrice = form.preco;
+
+	const book = new Book();
+	const obj = {
+		author: form.autor,
+		title: form.titulo,
+		publisher: form.editora,
+		edition: form.edicao,
+		images: [form.imagem],
+		auction: auction._id,
+	}
+	book.newBook(obj);
+	auction.book = book._id;
+
+	auction.save((err, doc) => {
+		const date = doc.createdAt;
+		const maxDate = new Date(date.getTime() + (14*24*60*60*1000));
+
+		auction.limitDate = date;
+		auction.maxDate = maxDate;
+
+		auction.save(() => {
+			done(auction);
+		});
+	});
+};
 
 module.exports = mongoose.model('Leilao', auctionSchema);

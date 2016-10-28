@@ -11,7 +11,10 @@ $(document).ready(() => {
 	});
 
   // create sidebar and attach to menu open
-	$('.ui.sidebar').sidebar('attach events', '.toc.item');
+	$('.ui.sidebar').sidebar('attach events', '.toc.item').sidebar('setting', {
+		transition: 'overlay',
+		mobileTransition: 'overlay',
+	});
 
 	const pgurl = window.location.href.substr(window.location.href.lastIndexOf('/'));
 	function addActive() {
