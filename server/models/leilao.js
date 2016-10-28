@@ -1,5 +1,7 @@
 /* eslint new-cap: ["error", { "capIsNew": false }] */
+
 'use strict';
+
 const mongoose = require('mongoose');
 const Book = require('./livro');
 
@@ -40,7 +42,7 @@ const auctionSchema = mongoose.Schema({
 });
 
 auctionSchema.methods.newAuction = function newAuction(form, seller, done) {
-	let auction = this;
+	const auction = this;
 
 	auction.seller = seller;
 	auction.state = 'pending';
@@ -55,13 +57,13 @@ auctionSchema.methods.newAuction = function newAuction(form, seller, done) {
 		edition: form.edicao,
 		images: [form.imagem],
 		auction: auction._id,
-	}
+	};
 	book.newBook(obj);
 	auction.book = book._id;
 
 	auction.save((err, doc) => {
 		const date = doc.createdAt;
-		const maxDate = new Date(date.getTime() + (14*24*60*60*1000));
+		const maxDate = new Date(date.getTime() + (14 * 24 * 60 * 60 * 1000));
 
 		auction.limitDate = date;
 		auction.maxDate = maxDate;
