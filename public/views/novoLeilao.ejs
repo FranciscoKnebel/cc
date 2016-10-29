@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cooper Comics</title>
+
+		<% include ../snippets/head %>
+		<% include ../snippets/analytics %>
+		<% include ../snippets/css %>
+	</head>
+	<body>
+		<% include ../snippets/navbar/navbar %>
+
+		<div class="pusher">
+			<div class="ui inverted vertical masthead center aligned segment">
+				<% include ../snippets/navbar/navbar-fixed %>
+
+				<div class="ui text container">
+					<h1 class="ui inverted header">
+						Cooper Comics
+					</h1>
+				</div>
+			</div>
+			<div class="ui container">
+				<div class="ui segment">
+					<h1>Novo Leilão "<i><%= leilao.book.title %></i>" registrado!</h1>
+
+					<ul>
+						<li>Livro</li>
+						<ul>
+							<li>Título: <%= leilao.book.title %></li>
+							<li>Autor: <%= leilao.book.author %></li>
+							<li>Editora: <%= leilao.book.publisher %></li>
+							<li>Edição: <%= leilao.book.edition %></li>
+							<li>Imagem: <img class="ui small image" src="<%= leilao.book.images[0] %>"></li>
+						</ul>
+						<li>Leilão</li>
+						<ul>
+							<li>Criado em: <%= leilao.createdAt %></li>
+							<li>Data limite em: <%= leilao.limitDate %></li>
+							<li>Data máxima em: <%= leilao.maxDate %></li>
+							<li>Preço inicial: <%= leilao.initialPrice %></li>
+							<li>Estado atual: <%= leilao.state %></li>
+							<li><textarea name="descricao"><%= leilao.description %></textarea></li>
+						</ul>
+					</ul>
+				</div>
+			</div>
+
+			<% include ../snippets/footer %>
+		</div>
+
+		<% include ../snippets/js %>
+	</body>
+</html>

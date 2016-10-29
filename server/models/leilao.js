@@ -45,7 +45,7 @@ auctionSchema.methods.newAuction = function newAuction(form, seller, done) {
 	const auction = this;
 
 	auction.seller = seller;
-	auction.state = 'pending';
+	auction.state = 'pendente';
 	auction.description = form.descricao;
 	auction.initialPrice = form.preco;
 
@@ -63,7 +63,7 @@ auctionSchema.methods.newAuction = function newAuction(form, seller, done) {
 
 	auction.save((err, doc) => {
 		const date = doc.createdAt;
-		const maxDate = new Date(date.getTime() + (14 * 24 * 60 * 60 * 1000));
+		const maxDate = new Date(date.getTime() + (14 * 24 * 60 * 60 * 1000)); // + 14 dias
 
 		auction.limitDate = date;
 		auction.maxDate = maxDate;

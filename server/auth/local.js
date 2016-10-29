@@ -7,10 +7,10 @@ module.exports = function localAuth(passport) {
 	passport.use('local-login', new LocalStrategy({
 		usernameField: 'email',
 		passwordField: 'password',
-		passReqToCallback: true,
+		passReqToCallback: true
 	}, (req, email, password, done) => {
 		Cliente.findOne({
-			email,
+			email
 		}, (err, user) => {
 			if (err) {
 				return done(err);
@@ -18,7 +18,7 @@ module.exports = function localAuth(passport) {
 
 			if (!user) {
 				Administrador.findOne({
-					email,
+					email
 				}, (err2, admin) => {
 					if (err2) {
 						return done(err2);
@@ -48,17 +48,17 @@ module.exports = function localAuth(passport) {
 	passport.use('local-signup', new LocalStrategy({
 		usernameField: 'email',
 		passwordField: 'password',
-		passReqToCallback: true,
+		passReqToCallback: true
 	}, (req, email, password, done) => {
 		process.nextTick(() => {
 			Cliente.findOne({
-				email,
+				email
 			}, (err, existingUser) => {
 				if (err) {
 					return done(err);
 				}
 
-				if (existingUser)	{
+				if (existingUser) {
 					return done(null, false, req.flash('signupMessage', 'Email já cadastrado.'));
 				}
 
@@ -72,7 +72,7 @@ module.exports = function localAuth(passport) {
 					user.email = email;
 					user.password = user.generateHash(password);
 					user.save((err2) => {
-						if (err2)	{
+						if (err2) {
 							return done(err2);
 						}
 						return done(null, user, req.flash('appMessage', 'Conta registrada com sucesso.'));

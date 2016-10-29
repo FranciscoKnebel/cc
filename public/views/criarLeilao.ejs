@@ -24,7 +24,7 @@
 			<div class="ui container" style="margin-top: 1em;">
 				<div class="ui segment">
 					<h1>Livro</h1>
-					<form class="ui form" action="/criar/leilao" method="post">
+					<form class="ui form" action="/criar/leilao" method="post" id="criarleilao">
 					  <div class="equal width fields">
 					    <div class="field">
 					      <label>Autor</label>
@@ -58,8 +58,8 @@
 
 						<div class="equal width fields">
 							<div class="field">
-								<label for="">Descrição</label>
-						    <textarea></textarea>
+								<label for="descricao">Descrição</label>
+						    <textarea name="descricao" form="criarleilao"></textarea>
 						  </div>
 						</div>
 						<button type="submit" name="submit" class="ui positive button">Criar Leilão</button>
