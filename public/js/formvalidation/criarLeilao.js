@@ -58,6 +58,7 @@ $(document).ready(() => {
 			},
 			imagem: {
 				identifier: 'imagem',
+				optional: true,
 				rules: [
 					{
 						type: 'empty',

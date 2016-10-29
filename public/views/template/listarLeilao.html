@@ -1,0 +1,32 @@
+<div class="ui segment">
+	<div ng-if="leiloes.length < 1">
+		<h1>Não há leilões em andamento.</h1>
+	</div>
+	<div ng-if="leiloes.length >= 1" class="ui relaxed divided items">
+		<div class="ui four buttons">
+			<button type="button" ng-click="botao()" class="ui primary button">Ordenar 1</button>
+			<button type="button" ng-click="botao()" class="ui secondary button">Ordenar 2</button>
+			<button type="button" ng-click="botao()" class="ui red button">Ordenar 3</button>
+			<button type="button" ng-click="botao()" class="ui green button">Ordenar 4</button>
+		</div>
+		<div class="item" ng-repeat="leilao in leiloes">
+			<div class="ui small image">
+				<a href="/leilao/{{leilao._id}}">
+					<img ng-src="{{leilao.book.images[0]}}">
+				</a>
+			</div>
+			<div class="content">
+				<a class="header" href="/leilao/{{leilao._id}}">{{leilao.book.title}}</a>
+				<div class="meta">
+					<a>Preço inicial: {{leilao.initialPrice}}</a><br>
+					<a ng-if="leilao.bids.length < 1">Não há ofertas para esse leilão.</a>
+					<a ng-if="leilao.bids.length >= 1">Preço atual: {{leilao.currentPrice}}</a><br>
+					<a>Lances: {{leilao.bids.length}}</a><br>
+				</div>
+				<div class="description">
+					{{leilao.description}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

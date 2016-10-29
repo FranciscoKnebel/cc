@@ -11,18 +11,20 @@ module.exports = function routes(app, dirname, passport) {
 	paths(app, dirname);
 	authLocal(app, passport, modules);
 	email(app);
-	api(app, modules);
 
 	app.get('/', (req, res) => {
 		res.render('index.ejs', { user: req.user });
 	});
 
-	app.get('/app', modules.isLoggedIn, (req, res) => {
-		res.render('app.ejs', { user: req.user, message: req.flash('appMessage') });
-	});
-
 	app.get('/contato', (req, res) => {
 		res.render('contato.ejs', { user: req.user, message: false });
+	});
+
+	app.all('*', modules.isLoggedIn);
+	api(app, modules);
+
+	app.get('/app', (req, res) => {
+		res.render('app.ejs', { user: req.user, message: req.flash('appMessage') });
 	});
 
 	leilao(app, modules);
