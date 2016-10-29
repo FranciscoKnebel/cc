@@ -1,18 +1,6 @@
+const mongoose = require('mongoose');
+
 module.exports = function api(app, modules) {
-	app.post('/leilao/criar', (req, res) => {
-		const leilao = new modules.Leilao();
-
-		leilao.newAuction(req.body, req.user._id, (auction) => {
-			modules.Leilao.findById(auction._id).populate('book').exec((err, doc) => {
-				if (err) {
-					throw err;
-				}
-
-				res.render('novoLeilao.ejs', { user: req.user, leilao: doc });
-			});
-		});
-	});
-
 	app.get('/api/buscar/leilao', (req, res) => {
 		if (req.query.listAll === 'true') {
 			if (req.query.state) {
@@ -32,8 +20,20 @@ module.exports = function api(app, modules) {
 					res.send(docs);
 				});
 			}
-		} else if (!req.query.type) {
+		} else if (!req.query.type && !req.query.id) {
 			res.status(400).send('listAll is false or undefined, so type needs to be defined.');
+		} else if (req.query.id) {
+			if (mongoose.Types.ObjectId.isValid(req.query.id)) {
+				modules.Leilao.findById(req.query.id).populate('book').exec((err, doc) => {
+					if (err) {
+						res.status(400).send(err.message);
+					}
+
+					res.send(doc);
+				});
+			} else {
+				res.status(400).send("Invalid id " + req.query.id + " informed.");
+			}
 		} else {
 			const searchType = req.query.type;
 

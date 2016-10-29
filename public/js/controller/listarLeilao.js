@@ -9,7 +9,7 @@ ngapp.controller('listarLeilaoController', function listarLeilaoController($scop
 			url: '/api/buscar/leilao',
 			params: {
 				listAll: true,
-				state: 'andamento',
+				state: 'valido',
 			},
 		};
 

@@ -10,11 +10,9 @@
 			<button type="button" ng-click="botao()" class="ui green button">Ordenar 4</button>
 		</div>
 		<div class="item" ng-repeat="leilao in leiloes">
-			<div class="ui small image">
-				<a href="/leilao/{{leilao._id}}">
-					<img ng-src="{{leilao.book.images[0]}}">
-				</a>
-			</div>
+			<a class="ui small image" href="/leilao/{{leilao._id}}">
+				<img ng-src="{{leilao.book.images[0]}}">
+			</a>
 			<div class="content">
 				<a class="header" href="/leilao/{{leilao._id}}">{{leilao.book.title}}</a>
 				<div class="meta">
@@ -22,9 +20,16 @@
 					<a ng-if="leilao.bids.length < 1">Não há ofertas para esse leilão.</a>
 					<a ng-if="leilao.bids.length >= 1">Preço atual: {{leilao.currentPrice}}</a><br>
 					<a>Lances: {{leilao.bids.length}}</a><br>
+					<a>Final de leilão: {{ leilao.limitDate | date:'yyyy-MM-dd HH:mm:ss'}}</a>
 				</div>
 				<div class="description">
-					{{leilao.description}}
+					<p>{{leilao.description}}</p>
+				</div>
+				<div class="extra">
+					<a  href="/leilao/{{leilao._id}}" class="ui right floated primary button">
+						Acessar Leilão
+						<i class="right chevron icon"></i>
+	        </a>
 				</div>
 			</div>
 		</div>

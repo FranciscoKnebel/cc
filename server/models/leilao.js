@@ -35,6 +35,7 @@ const auctionSchema = mongoose.Schema({
 		ref: 'Livro',
 	},
 }, {
+	collection: 'leiloes',
 	timestamps: {
 		createdAt: 'createdAt',
 		updatedAt: 'updatedAt',
@@ -48,6 +49,7 @@ auctionSchema.methods.newAuction = function newAuction(form, seller, done) {
 	auction.state = 'pendente';
 	auction.description = form.descricao;
 	auction.initialPrice = form.preco;
+	auction.currentPrice = form.preco;
 
 	const book = new Book();
 	const obj = {
@@ -63,10 +65,9 @@ auctionSchema.methods.newAuction = function newAuction(form, seller, done) {
 
 	auction.save((err, doc) => {
 		const date = doc.createdAt;
-		const maxDate = new Date(date.getTime() + (14 * 24 * 60 * 60 * 1000)); // + 14 dias
 
-		auction.limitDate = date;
-		auction.maxDate = maxDate;
+		auction.limitDate = new Date(date.getTime() + (14 * 24 * 60 * 60 * 1000)); // + 14 dias
+		auction.maxDate = new Date(date.getTime() + (28 * 24 * 60 * 60 * 1000)); // + 28 dias
 
 		auction.save(() => {
 			done(auction);
