@@ -1,14 +1,17 @@
 <!-- Following Menu -->
 <div class="ui large top fixed menu transition hidden" id="followingMenu">
   <div class="ui container">
-		<a href="/app" class="header item">
+		<a href="/app" class="header item" target="_self">
 			<img class="logo" src="/img/cooper.jpg">
 		</a>
-    <a class="item" href="/">Home</a>
-    <a class="item" href="/contato">Contato</a>
+    <a class="item" href="/" target="_self">Home</a>
+    <a class="item" href="/contato" target="_self">Contato</a>
+		<% if (user._type === "Administrador") { %>
+			<a class="item" href="/admin" target="_self">Admin</a>
+		<% } %>
     <div class="right menu">
 			<div class="item">
-				<a class="ui red button" href="/logout"><i class="sign out icon"></i>Sair</a>
+				<a class="ui red button" href="/logout" target="_self"><i class="sign out icon"></i>Sair</a>
 			</div>
     </div>
   </div>

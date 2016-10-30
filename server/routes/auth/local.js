@@ -10,10 +10,18 @@ module.exports = function authLocal(app, passport, modules) {
 	});
 
 	app.post('/login', modules.isLoggedOut, passport.authenticate('local-login', {
-		successRedirect: '/app',
+		successRedirect: '/login/callback',
 		failureRedirect: '/login',
 		failureFlash: true,
 	}));
+
+	app.get('/login/callback', (req, res) => {
+		if (req.user._type === 'Administrador') {
+			res.redirect('/admin');
+		} else {
+			res.redirect('/app');
+		}
+	});
 
 	app.get('/auth', (req, res) => {
 		res.redirect('/login');

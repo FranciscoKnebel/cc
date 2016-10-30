@@ -3,19 +3,23 @@
 const ngapp = angular.module('cc', ['ngRoute']);
 
 ngapp.controller('undef', function leilaoController($scope, $http, $routeParams) {
-	window.location.assign('/' + $routeParams.path);
+	if ($routeParams.path) {
+		window.location.assign('/' + $routeParams.path);
+	} else {
+		window.location.assign('/admin');
+	}
 });
 
 ngapp.config(function appConfig($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 
-	$routeProvider.when('/leilao/listar', {
-		controller: 'listarLeilaoController',
-		templateUrl: '/template/listarLeilao.html',
+	$routeProvider.when('/admin', {
+		controller: 'adminController',
+		templateUrl: '/template/admin.html',
 	});
-	$routeProvider.when('/leilao/:id', {
-		controller: 'leilaoController',
-		templateUrl: '/template/leilao.html',
+	$routeProvider.when('/admin/criar', {
+		controller: 'adminController',
+		templateUrl: '/template/adminCriar.html',
 	});
 	$routeProvider.when('/:path', {
 		controller: 'undef',

@@ -5,6 +5,7 @@ const authLocal = require('./auth/local');
 const email = require('./email');
 const api = require('./api/index');
 
+const admin = require('./admin');
 const leilao = require('./leilao');
 
 module.exports = function routes(app, dirname, passport) {
@@ -27,6 +28,7 @@ module.exports = function routes(app, dirname, passport) {
 		res.render('app.ejs', { user: req.user, message: req.flash('appMessage') });
 	});
 
+	admin(app, modules);
 	leilao(app, modules);
 
 	app.get('*', (req, res) => {

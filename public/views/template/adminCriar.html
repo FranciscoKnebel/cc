@@ -1,0 +1,58 @@
+<form class="ui large form error" action="/signup/admin" method="post">
+	<div class="ui stacked segment">
+		<div class="required field">
+			<label>Nome completo</label>
+			<div class="ui left icon input">
+				<i class="write icon"></i>
+				<input type="text" placeholder="Nome completo" name="nome" autocomplete="on">
+			</div>
+		</div>
+		<div class="required field">
+			<label>Endereço</label>
+			<div class="ui left icon input">
+				<i class="home icon"></i>
+				<input type="text" placeholder="Endereço" name="endereco" autocomplete="on">
+			</div>
+		</div>
+		<div class="required field">
+			<label>CPF</label>
+			<div class="ui left icon input">
+				<i class="hashtag icon"></i>
+				<input type="text" placeholder="CPF" name="CPF" autocomplete="on">
+			</div>
+		</div>
+		<div class="required field">
+			<label>Telefone</label>
+			<div class="ui left icon input">
+				<i class="call icon"></i>
+				<input type="tel" placeholder="Telefone" name="telefone" autocomplete="on">
+			</div>
+		</div>
+		<div class="required field">
+			<label>Código do empregado</label>
+			<div class="ui left icon input">
+				<i class="user icon"></i>
+				<input type="text" placeholder="Código do empregado" name="empregado">
+			</div>
+		</div>
+		<div class="required field">
+			<label>Email</label>
+			<div class="ui left icon input">
+				<i class="user icon"></i>
+				<input type="email" placeholder="E-mail" name="email">
+			</div>
+		</div>
+		<div class="required field">
+			<label>Senha</label>
+			<div class="ui left icon input">
+				<i class="lock icon"></i>
+				<input type="password" placeholder="Senha" name="password">
+			</div>
+		</div>
+		<button type="submit" class="ui teal submit button">Cadastrar novo administrador</button>
+		<a href="/admin" class="ui red button">Voltar</a>
+	</div>
+	<div class="ui error message"></div>
+</form>
+
+<script src="/js/formvalidation/signupAdmin.js" charset="utf-8"></script>

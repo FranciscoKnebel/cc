@@ -4,34 +4,36 @@
 		<h2>{{error}}</h2>
 	</div>
 
-	<h1 class="ui header">{{leilao.book.title}}</h1>
-	<h2 class="right floated"><i>{{leilao.book.author}}</i></h2>
-	<div class="ui stackable grid">
-		<div class="sixteen wide column">
-			<img ng-src="{{leilao.book.images[0]}}" class="ui left floated small image"/>
+	<div class="" ng-hide="error">
+		<h1 class="ui header">{{leilao.book.title}}</h1>
+		<h2 class="right floated"><i>{{leilao.book.author}}</i></h2>
+		<div class="ui stackable grid">
+			<div class="sixteen wide column">
+				<img ng-src="{{leilao.book.images[0]}}" class="ui left floated small image"/>
 
-			<h2>Editora: {{leilao.book.publisher}}</h2>
-			<h2>Edição: {{leilao.book.edition}}</h2>
-		</div>
-		<div class="six wide column">
-			<p>
-				Estado: {{leilao.state}}
-				<br>
-				Lances já efetuados: {{leilao.bids.length}}
-			</p>
-			<p>
-				Lance atual: {{leilao.currentPrice}}
-				<br>
-				Novo lance mínimo: {{leilao.nextPrice}}
-				<br>
-				<button type="button" class="ui green button">Efetuar lance</button>
-			</p>
-		</div>
-		<div class="ten wide column">
-			<div class="ui message">
+				<h2>Editora: {{leilao.book.publisher}}</h2>
+				<h2>Edição: {{leilao.book.edition}}</h2>
+			</div>
+			<div class="six wide column">
 				<p>
-					{{leilao.description}}
+					Estado: {{leilao.state}}
+					<br>
+					Lances já efetuados: {{leilao.bids.length}}
 				</p>
+				<p>
+					Lance atual: {{leilao.currentPrice}}
+					<br>
+					Novo lance mínimo: {{leilao.nextPrice}}
+					<br>
+					<button type="button" class="ui green button">Efetuar lance</button>
+				</p>
+			</div>
+			<div class="ten wide column">
+				<div class="ui message">
+					<p>
+						{{leilao.description}}
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>

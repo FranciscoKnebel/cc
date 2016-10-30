@@ -28,8 +28,11 @@ module.exports = function api(app, modules) {
 					if (err) {
 						res.status(400).send(err.message);
 					}
-
-					res.send(doc);
+					if (!doc) {
+						res.status(404).send(doc);
+					} else {
+						res.send(doc);
+					}
 				});
 			} else {
 				res.status(400).send("Invalid id " + req.query.id + " informed.");

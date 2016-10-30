@@ -21,8 +21,9 @@ ngapp.controller('leilaoController', function leilaoController($scope, $http, $r
 				$scope.leilao.nextPrice = $scope.leilao.currentPrice;
 			}
 			$scope.loading = false;
+			$scope.error = false;
 		}, function errorCallback(response) {
-			$scope.error = response.data;
+			$scope.error = response.status + ": " + response.statusText;
 			$scope.loading = false;
 		});
 	}

@@ -1,0 +1,32 @@
+<% include ../snippets/navbar/navbar %>
+
+<div class="pusher">
+	<div class="ui inverted vertical masthead center aligned segment">
+		<% include ../snippets/navbar/navbar-fixed %>
+
+		<div class="ui text container">
+			<h1 class="ui inverted header">
+				Cooper Comics
+			</h1>
+		</div>
+	</div>
+
+	<% if (message.length > 0) { %>
+		<div class="ui text container">
+			<div class="ui message">
+				<div class="content">
+					<%= message %>
+				</div>
+			</div>
+		</div>
+	<% } %>
+
+	<div class="ui text container" ng-view style="margin-top: 1em;">
+		<base href="/"></base>
+	</div>
+
+	<% include ../snippets/footer %>
+</div>
+
+<% include ../snippets/js %>
+<% include ../snippets/angular %>
