@@ -18,10 +18,10 @@ module.exports = function routes(app, modules) {
 	});
 
 	app.get('/leilao/listar', (req, res) => {
-		res.render('listarLeilao.ejs', { user: req.user });
+		res.render('listarLeilao.ejs', { user: req.user, message: '' });
 	});
 
 	app.get('/leilao/:id', (req, res) => {
-		res.render('leilao.ejs', { user: req.user });
+		res.render('leilao.ejs', { user: req.user, message: '' });
 	});
 };

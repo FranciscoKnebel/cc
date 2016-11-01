@@ -6,7 +6,7 @@ ngapp.controller('leilaoController', function leilaoController($scope, $http, $r
 	function buscarLeilao() {
 		const config = {
 			method: 'GET',
-			url: '/api/buscar/leilao',
+			url: '/api/leilao/buscar',
 			params: {
 				id: $routeParams.id,
 			},

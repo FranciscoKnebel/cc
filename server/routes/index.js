@@ -1,7 +1,7 @@
 const modules = require('../modules/index');
 
 const paths = require('./static');
-const authLocal = require('./auth/local');
+const authLocal = require('./conta/local');
 const email = require('./email');
 const api = require('./api/index');
 

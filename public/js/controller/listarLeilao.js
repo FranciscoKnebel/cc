@@ -6,7 +6,7 @@ ngapp.controller('listarLeilaoController', function listarLeilaoController($scop
 	function buscarTodosLeiloes() {
 		const config = {
 			method: 'GET',
-			url: '/api/buscar/leilao',
+			url: '/api/leilao/buscar',
 			params: {
 				listAll: true,
 				state: 'valido',

@@ -7,6 +7,7 @@
     "lint": "npm run lint-js",
     "lint-js": "./node_modules/.bin/eslint public/js/*.js server/**/*.js *.js",
     "start": "node --harmony_proxies index.js",
+    "nodemon": "nodemon --harmony_proxies index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
