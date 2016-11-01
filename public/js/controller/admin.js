@@ -1,6 +1,6 @@
 /* global ngapp */
 
-ngapp.controller('adminController', function adminController($scope, $http, $location, $routeParams) {
+ngapp.controller('adminController', function adminController($scope, $http, $location, $routeParams, $filter) {
 	$scope.message = '';
 	$scope.error = '';
 	$scope.loading = {
@@ -18,14 +18,31 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 			},
 		};
 
+		$scope.message = '';
+		$scope.err = '';
+
 		$scope.loading = {
 			message: 'Validando leilão...',
 			state: true,
 		};
 		$http(config).then(function successCallback(response) {
-			console.log(response);
+			console.log('success', response);
+
+			$scope.leiloes = $scope.leiloes.filter(function filterID(item) {
+				return item._id !== id;
+			});
+
+			$scope.message = "Leilão " + id + " validado corretamente.";
+
+			$scope.loading = {
+				state: false,
+			};
 		}, function failureCallback(response) {
-			console.log('error', response);
+			console.log('failure', response);
+			$scope.error = response.statusText;
+			$scope.loading = {
+				state: false,
+			};
 		});
 	};
 

@@ -1,6 +1,6 @@
 <div class="ui very padded segment">
 	<h1 class="ui header">Validar leilões</h1>
-	<div ng-hide="leiloes.length >= 1" class="">
+	<div class="">
 	  <div class="ui dimmer" ng-class="{active: loading.state}">
 		  <div class="ui text loader">{{loading.message}}</div>
 		</div>
@@ -39,8 +39,8 @@
 				</div>
 			</div>
 		</div>
-		<div ng-if="leiloes.length > 3" class="ui big right floated buttons">
-			<a href="/admin" class="ui red button">Voltar</a>
-		</div>
+	</div>
+	<div ng-if="leiloes.length > 3" class="ui big buttons">
+		<a href="/admin" class="ui red button">Voltar</a>
 	</div>
 </div>
