@@ -1,4 +1,9 @@
+html {
+	background-color: yellow;
+}
+
 body.pushable > .pusher {
+	background-color: yellow;
   background-image: url('/img/radial.jpg');
   background-position: center;
   background-size: cover;

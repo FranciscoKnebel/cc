@@ -45,7 +45,7 @@ module.exports = function leilao(app, modules) {
 					}
 				});
 			} else {
-				res.status(400).send("Invalid id " + req.query.id + " informed.");
+				res.status(400).send(`Invalid id ${req.query.id} informed.`);
 			}
 		} else {
 			const searchType = req.query.type;
@@ -83,4 +83,4 @@ module.exports = function leilao(app, modules) {
 			}
 		}
 	});
-}
+};

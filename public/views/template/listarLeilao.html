@@ -8,19 +8,27 @@
 	<h2 class="">{{message}}</h2>
 	<h2 class="">{{error}}</h2>
 
-	<div class="ui big buttons" style="margin-top: 0.5em;">
-		<a href="/app" class="ui red button">Voltar</a>
+	<div class="ui stackable grid">
+		<div class="six wide column">
+			<div class="ui big buttons" style="margin-top: 0.5em;">
+				<a href="/app" class="ui red button">Voltar</a>
+				<a ng-click="refresh()" class="ui green button">Refresh</a>
+			</div>
+		</div>
+		<div class="six wide column">
+			<div class="ui input">
+				<input type="search" ng-model="filter.book.title" placeholder="Filtrar leilões..." aria-label="filtrar leilões" />
+			</div>
+			<div class="ui right floated buttons">
+				<button class="ui primary button" ng-click="ordenar('limitDate')"><i class="clock icon"></i></button>
+				<button class="ui green button" ng-click="ordenar('currentPrice')"><i class="sort content ascending icon"></i></button>
+				<button class="ui secondary button" ng-click="ordenar('book.title')"><i class="sort alphabet ascending icon"></i></button>
+			</div>
+		</div>
 	</div>
 
-	<div ng-if="leiloes.length >= 1" class="ui relaxed divided items">
-		<div class="ui four buttons">
-			<button type="button" ng-click="botao()" class="ui primary button">Ordenar 1</button>
-			<button type="button" ng-click="botao()" class="ui secondary button">Ordenar 2</button>
-			<button type="button" ng-click="botao()" class="ui red button">Ordenar 3</button>
-			<button type="button" ng-click="botao()" class="ui green button">Ordenar 4</button>
-		</div>
-
-		<div class="item" ng-repeat="leilao in leiloes">
+	<div ng-if="leiloes.length >= 1" class="ui relaxed divided items" id="stickyContext">
+		<div class="animate-repeat item" ng-repeat="leilao in leiloes | orderBy:propertyName:reverse | filter: filter:strict" ng-init="$last && fireEvent()">
 			<a class="ui small image" href="/leilao/{{leilao._id}}" target="_self">
 				<img ng-src="{{leilao.book.images[0]}}">
 			</a>

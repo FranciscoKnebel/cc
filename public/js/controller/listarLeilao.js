@@ -8,6 +8,8 @@ ngapp.controller('listarLeilaoController', function listarLeilaoController($scop
 		message: '',
 		state: false,
 	};
+	$scope.propertyName = 'limitDate';
+	$scope.reverse = false;
 
 	function buscarTodosLeiloes() {
 		const config = {
@@ -19,6 +21,7 @@ ngapp.controller('listarLeilaoController', function listarLeilaoController($scop
 			},
 		};
 
+		$scope.leiloes = [];
 		$scope.loading = {
 			message: 'Carregando leilões...',
 			state: true,
@@ -42,6 +45,24 @@ ngapp.controller('listarLeilaoController', function listarLeilaoController($scop
 			};
 		});
 	}
+
+	$scope.refresh = function refresh() {
+		buscarTodosLeiloes();
+	};
+
+	$scope.ordenar = function ordenar(propertyName) {
+		$scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+		$scope.propertyName = propertyName;
+	};
+
+	$scope.fireEvent = function fireEvent() {
+
+		$('.ui.sticky').sticky({
+			context: '#stickyContext',
+			offset: 60,
+		});
+
+	};
 
 	buscarTodosLeiloes();
 });

@@ -32,7 +32,7 @@ module.exports = function routes(app, modules) {
 						throw err;
 					}
 
-					req.flash('appMessage', 'Administrador ' + user.name + ' cadastrado.');
+					req.flash('appMessage', `Administrador ${user.name} cadastrado.`);
 					res.redirect('/admin');
 				});
 			}

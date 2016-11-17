@@ -9,7 +9,7 @@ module.exports = function alteracao(app, modules) {
 				}
 
 				if (!doc) {
-					res.status(404).send('Leilão ' + req.body.id + ' não encontrado.');
+					res.status(404).send(`Leilão ${req.body.id} não encontrado.`);
 				} else if (req.body.state) {
 					doc.state = req.body.state;
 					doc.save(function (err2) {
@@ -20,7 +20,7 @@ module.exports = function alteracao(app, modules) {
 						res.send(doc);
 					});
 				} else {
-					console.log("Alterar dados do leilão.");
+					console.log('Alterar dados do leilão.');
 				}
 			});
 		} else {
