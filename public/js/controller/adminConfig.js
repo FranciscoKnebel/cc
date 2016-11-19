@@ -3,6 +3,9 @@
 ngapp.config(function appConfig($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 
+	$routeProvider.when('/app', {
+		redirectTo: '/admin',
+	});
 	$routeProvider.when('/admin', {
 		controller: 'adminController',
 		templateUrl: '/template/admin.html',
@@ -14,5 +17,9 @@ ngapp.config(function appConfig($routeProvider, $locationProvider) {
 	$routeProvider.when('/admin/validar', {
 		controller: 'adminController',
 		templateUrl: '/template/adminValidar.html',
+	});
+	$routeProvider.when('/admin/editar', {
+		controller: 'listarLeilaoController',
+		templateUrl: '/template/adminEditar.html',
 	});
 });

@@ -1,5 +1,5 @@
 <div class="ui very padded segment">
-	<h1>Listar Leilões</h1>
+	<h1>Editar Leilões</h1>
 	<div class="">
 		<div class="ui dimmer" ng-class="{active: loading.state}">
 			<div class="ui text loader">{{loading.message}}</div>
@@ -27,7 +27,7 @@
 	</div>
 
 	<div ng-if="leiloes.length >= 1" class="ui relaxed divided items" id="stickyContext">
-		<table class="ui inverted blue celled table">
+		<table class="ui selectable blue celled table">
 			<thead>
 				<tr>
 					<th></th>
@@ -37,21 +37,19 @@
 					<th ng-click="ordenar('currentPrice')" class="selectable">Preço Atual</th>
 					<th>Lances</th>
 					<th ng-click="ordenar('limitDate')" class="selectable">Final de Leilão</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr class="animate-repeat" ng-repeat="leilao in leiloes | orderBy:propertyName:reverse | filter: filter:strict" ng-init="$last && fireEvent()">
-					<td class="selectable">
-						<a href="/leilao/{{leilao._id}}" target="_self"><img class="ui mini image" ng-src="{{leilao.book.images[0]}}"></a>
-					</td>
-					<td class="selectable">
-						<a href="/leilao/{{leilao._id}}" target="_self">{{leilao.book.title}}</a>
-					</td>
+					<td><img class="ui mini image" ng-src="{{leilao.book.images[0]}}"></td>
+					<td>{{leilao.book.title}}</td>
 					<td>{{leilao.book.author}}</td>
 					<td>{{leilao.initialPrice}}</td>
 					<td>{{leilao.currentPrice}}</td>
 					<td>{{leilao.bids.length}}</td>
 					<td>{{ leilao.limitDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td><a type="button" class="ui red button" href="/leilao/editar/{{leilao._id}}" target="_self">Editar</a></td>
 				</tr>
 			</tbody>
 		</table>

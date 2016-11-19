@@ -25,7 +25,11 @@ module.exports = function routes(app, dirname, passport) {
 	api(app, modules);
 
 	app.get('/app', (req, res) => {
-		res.render('app.ejs', { user: req.user, message: req.flash('appMessage') });
+		if (req.user._type === 'Administrador') {
+			res.redirect('/admin');
+		} else {
+			res.render('app.ejs', { user: req.user, message: req.flash('appMessage') });
+		}
 	});
 
 	admin(app, modules);

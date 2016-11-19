@@ -58,3 +58,13 @@ body.pushable > .pusher {
 div + .no-items {
   display: none;
 }
+
+th.selectable:hover {
+  background: rgba(255,255,255,.08) !important;
+  color: #fff !important;
+	cursor: pointer !important;
+}
+
+.hidden {
+	display: none;
+}
