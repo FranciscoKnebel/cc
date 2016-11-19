@@ -1,6 +1,6 @@
 /* global ngapp */
 
-ngapp.controller('listarLeilaoController', function listarLeilaoController($scope, $http) {
+ngapp.controller('listarLeilaoController', function listarLeilaoController($scope, $http, $location) {
 	$scope.leiloes = [];
 	$scope.message = '';
 	$scope.error = '';
@@ -56,12 +56,10 @@ ngapp.controller('listarLeilaoController', function listarLeilaoController($scop
 	};
 
 	$scope.fireEvent = function fireEvent() {
-
 		$('.ui.sticky').sticky({
 			context: '#stickyContext',
 			offset: 60,
 		});
-
 	};
 
 	buscarTodosLeiloes();

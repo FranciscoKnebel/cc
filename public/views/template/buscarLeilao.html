@@ -1,0 +1,67 @@
+<div class="ui very padded segment">
+	<h1>Buscar Leilões</h1>
+	<div class="">
+		<div class="ui dimmer" ng-class="{active: loading.state}">
+			<div class="ui text loader">{{loading.message}}</div>
+		</div>
+	</div>
+	<h2 class="">{{message}}</h2>
+	<h2 class="">{{error}}</h2>
+
+	<div class="ui stackable grid">
+		<div class="six wide column">
+			<div class="ui big buttons" style="margin-top: 0.5em;">
+				<a href="/app" class="ui red button">Voltar</a>
+				<a ng-click="refresh()" class="ui green button">Refresh</a>
+			</div>
+		</div>
+		<div class="six wide column">
+			<div class="ui input">
+				<input type="search" ng-model="search.book.title" placeholder="Buscar por Título" aria-label="buscar por título" />
+				<input type="search" ng-model="search.book.edition" placeholder="Buscar por Edição" aria-label="buscar por edição" />
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="leiloes.length >= 1" class="ui relaxed divided items" id="stickyContext">
+		<div class="animate-repeat item" ng-repeat="leilao in leiloes | orderBy:propertyName:reverse | filter: search">
+			<a class="ui small image" href="/leilao/{{leilao._id}}" target="_self">
+				<img ng-src="{{leilao.book.images[0]}}">
+			</a>
+			<div class="content">
+				<a class="header" href="/leilao/{{leilao._id}}" target="_self">{{leilao.book.title}}</a>
+				<div class="description">
+					<p>{{leilao.book.author}}</p>
+				</div>
+				<div class="meta">
+					<a>Edição: {{leilao.book.edition}}</a><br>
+					<a>Preço inicial: {{leilao.initialPrice}}</a><br>
+					<a ng-if="leilao.bids.length < 1">Não há ofertas para esse leilão.</a>
+					<a ng-if="leilao.bids.length >= 1">Preço atual: {{leilao.currentPrice}}</a><br>
+					<a>Lances: {{leilao.bids.length}}</a><br>
+					<a>Final de leilão: {{ leilao.limitDate | date:'yyyy-MM-dd HH:mm:ss'}}</a>
+				</div>
+				<div class="description">
+					<p>{{leilao.description}}</p>
+				</div>
+				<div class="extra">
+					<a href="/leilao/{{leilao._id}}" class="ui right floated primary button"  target="_self">
+						Acessar Leilão
+						<i class="right chevron icon"></i>
+	        </a>
+				</div>
+			</div>
+		</div>
+		<div class="no-items">
+			<h3 class="header">
+				Não há resultados para sua busca.
+			</h3>
+			<h4>
+				Título: <i>{{search.book.title}}</i>
+			</h4>
+			<h4>
+				Edição: <i>{{search.book.edition}}</i>
+			</h4>
+		</div>
+	</div>
+</div>

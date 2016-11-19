@@ -21,6 +21,10 @@ module.exports = function routes(app, modules) {
 		res.render('listarLeilao.ejs', { user: req.user, message: '' });
 	});
 
+	app.get('/leilao/buscar', (req, res) => {
+		res.render('buscarLeilao.ejs', { user: req.user, message: '' });
+	});
+
 	app.get('/leilao/:id', (req, res) => {
 		res.render('leilao.ejs', { user: req.user, message: '' });
 	});

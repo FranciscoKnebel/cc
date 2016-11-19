@@ -8,49 +8,52 @@
 	<h2 class="">{{message}}</h2>
 	<h2 class="">{{error}}</h2>
 
-	<div class="ui stackable grid">
-		<div class="six wide column">
-			<div class="ui big buttons" style="margin-top: 0.5em;">
-				<a href="/app" class="ui red button">Voltar</a>
-				<a ng-click="refresh()" class="ui green button">Refresh</a>
-			</div>
-		</div>
-		<div class="six wide column">
-			<div class="ui input">
-				<input type="search" ng-model="filter.book.title" placeholder="Filtrar leilões..." aria-label="filtrar leilões" />
-			</div>
-			<div class="ui right floated buttons">
-				<button class="ui primary button" ng-click="ordenar('limitDate')"><i class="clock icon"></i></button>
-				<button class="ui green button" ng-click="ordenar('currentPrice')"><i class="sort content ascending icon"></i></button>
-				<button class="ui secondary button" ng-click="ordenar('book.title')"><i class="sort alphabet ascending icon"></i></button>
-			</div>
-		</div>
+	<div class="ui big buttons" style="margin-top: 0.5em;">
+		<a href="/app" class="ui red button">Voltar</a>
+		<a ng-click="refresh()" class="ui green button">Refresh</a>
+	</div>
+
+	<div class="ui big right floated buttons">
+		<button class="ui primary button" ng-click="ordenar('limitDate')"><i class="clock icon"></i></button>
+		<button class="ui green button" ng-click="ordenar('currentPrice')"><i class="sort content ascending icon"></i></button>
+		<button class="ui secondary button" ng-click="ordenar('book.title')"><i class="sort alphabet ascending icon"></i></button>
+	</div>
+
+	<div class="ui input">
+		<input type="search" ng-model="filter.book.title" placeholder="Filtrar por Título" aria-label="filtrar por título" />
+	</div>
+	<div class="ui input">
+		<input type="search" ng-model="filter.book.edition" placeholder="Filtrar por Edição" aria-label="filtrar por edição" />
 	</div>
 
 	<div ng-if="leiloes.length >= 1" class="ui relaxed divided items" id="stickyContext">
-		<div class="animate-repeat item" ng-repeat="leilao in leiloes | orderBy:propertyName:reverse | filter: filter:strict" ng-init="$last && fireEvent()">
-			<a class="ui small image" href="/leilao/{{leilao._id}}" target="_self">
-				<img ng-src="{{leilao.book.images[0]}}">
-			</a>
-			<div class="content">
-				<a class="header" href="/leilao/{{leilao._id}}" target="_self">{{leilao.book.title}}</a>
-				<div class="meta">
-					<a>Preço inicial: {{leilao.initialPrice}}</a><br>
-					<a ng-if="leilao.bids.length < 1">Não há ofertas para esse leilão.</a>
-					<a ng-if="leilao.bids.length >= 1">Preço atual: {{leilao.currentPrice}}</a><br>
-					<a>Lances: {{leilao.bids.length}}</a><br>
-					<a>Final de leilão: {{ leilao.limitDate | date:'yyyy-MM-dd HH:mm:ss'}}</a>
-				</div>
-				<div class="description">
-					<p>{{leilao.description}}</p>
-				</div>
-				<div class="extra">
-					<a href="/leilao/{{leilao._id}}" class="ui right floated primary button"  target="_self">
-						Acessar Leilão
-						<i class="right chevron icon"></i>
-	        </a>
-				</div>
-			</div>
-		</div>
+		<table class="ui inverted blue celled table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Título</th>
+					<th>Autor</th>
+					<th>Preço Inicial</th>
+					<th>Preço Atual</th>
+					<th>Lances</th>
+					<th>Final de Leilão</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="animate-repeat" ng-repeat="leilao in leiloes | orderBy:propertyName:reverse | filter: filter:strict" ng-init="$last && fireEvent()">
+					<td class="selectable">
+						<a href="/leilao/{{leilao._id}}" target="_self"><img class="ui mini image" ng-src="{{leilao.book.images[0]}}"></a>
+					</td>
+					<td class="selectable">
+						<a href="/leilao/{{leilao._id}}" target="_self">{{leilao.book.title}}</a>
+					</td>
+					<td>{{leilao.book.author}}</td>
+					<td>{{leilao.initialPrice}}</td>
+					<td>{{leilao.currentPrice}}</td>
+					<td>{{leilao.bids.length}}</td>
+					<td>{{ leilao.limitDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>

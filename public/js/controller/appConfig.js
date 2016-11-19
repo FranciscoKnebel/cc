@@ -7,6 +7,10 @@ ngapp.config(function appConfig($routeProvider, $locationProvider) {
 		controller: 'listarLeilaoController',
 		templateUrl: '/template/listarLeilao.html',
 	});
+	$routeProvider.when('/leilao/buscar', {
+		controller: 'listarLeilaoController',
+		templateUrl: '/template/buscarLeilao.html',
+	});
 	$routeProvider.when('/leilao/:id', {
 		controller: 'leilaoController',
 		templateUrl: '/template/leilao.html',

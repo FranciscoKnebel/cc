@@ -54,3 +54,7 @@ body.pushable > .pusher {
 	background-color: rgba(50, 0, 255, 0.6);
 	padding-top: 3em;
 }
+
+div + .no-items {
+  display: none;
+}
