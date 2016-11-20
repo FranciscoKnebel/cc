@@ -32,7 +32,10 @@
 					<br>
 					Novo lance mínimo: {{leilao.nextPrice}}
 					<br>
-					<button type="button" class="ui green button" ng-class="{disabled : leilao.state != 'valido'}">Efetuar lance</button>
+					<div class="ui input">
+						<input type="Number" ng-value="leilao.nextPrice" ng-model="bidvalue" min="{{leilao.nextPrice}}">
+					</div>
+					<button type="button" class="ui green button" ng-class="{disabled : leilao.state != 'currentAuctions'}" ng-click="efetuarLance()">Efetuar lance</button>
 				</p>
 			</div>
 			<div class="eight wide tablet ten wide computer column">

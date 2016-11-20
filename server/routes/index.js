@@ -7,6 +7,7 @@ const api = require('./api/index');
 
 const admin = require('./admin');
 const leilao = require('./leilao');
+const lance = require('./lance');
 
 module.exports = function routes(app, dirname, passport) {
 	paths(app, dirname);
@@ -34,6 +35,7 @@ module.exports = function routes(app, dirname, passport) {
 
 	admin(app, modules);
 	leilao(app, modules);
+	lance(app, modules);
 
 	app.get('*', (req, res) => {
 		res.status(404).render('404.ejs', { user: req.user });

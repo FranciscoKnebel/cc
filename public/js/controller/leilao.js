@@ -16,10 +16,18 @@ ngapp.controller('leilaoController', function leilaoController($scope, $http, $r
 		$http(config).then(function successCallback(response) {
 			$scope.leilao = response.data;
 			if ($scope.leilao.bids.length > 0) {
-				$scope.leilao.nextPrice = $scope.leilao.currentPrice * 1.1;
+				const nextPrice = parseInt($scope.leilao.currentPrice * 1.1, 10);
+
+				if (nextPrice > $scope.leilao.currentPrice) {
+					$scope.leilao.nextPrice = nextPrice;
+				} else {
+					$scope.leilao.nextPrice = nextPrice + 1;
+				}
 			} else {
 				$scope.leilao.nextPrice = $scope.leilao.currentPrice;
 			}
+
+			$scope.bidvalue = $scope.leilao.nextPrice;
 			$scope.loading = false;
 			$scope.error = false;
 		}, function errorCallback(response) {
@@ -27,6 +35,12 @@ ngapp.controller('leilaoController', function leilaoController($scope, $http, $r
 			$scope.loading = false;
 		});
 	}
+
+	$scope.efetuarLance = function efetuarLance() {
+		if ($scope.bidvalue >= $scope.leilao.nextPrice) {
+			// efetuar lance
+		}
+	};
 
 	buscarLeilao();
 });

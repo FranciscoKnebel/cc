@@ -11,6 +11,12 @@ module.exports = function alteracao(app, modules) {
 				if (!doc) {
 					res.status(404).send(`Leilão ${req.body.id} não encontrado.`);
 				} else if (req.body.state) {
+					modules.Cliente.findById(doc.seller, (err3, cliente) => {
+						cliente.removeAuction(this._id, 'Vendedor', doc.state);
+						cliente.addAuction(this._id, 'Vendedor', req.body.state);
+						cliente.save();
+					});
+
 					doc.state = req.body.state;
 					doc.save(function (err2) {
 						if (err2) {

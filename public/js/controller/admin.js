@@ -14,7 +14,7 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 			url: '/api/leilao/alterar',
 			data: {
 				id,
-				state: 'valido',
+				state: 'currentAuctions',
 			},
 		};
 
@@ -57,7 +57,7 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 			url: '/api/leilao/buscar',
 			params: {
 				listAll: 'true',
-				state: 'pendente',
+				state: 'validationPendingAuctions',
 			},
 		};
 

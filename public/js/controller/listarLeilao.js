@@ -17,7 +17,7 @@ ngapp.controller('listarLeilaoController', function listarLeilaoController($scop
 			url: '/api/leilao/buscar',
 			params: {
 				listAll: true,
-				state: 'valido',
+				state: 'currentAuctions',
 			},
 		};
 

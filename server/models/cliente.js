@@ -1,6 +1,10 @@
+'use strict';
+
 const mongoose = require('mongoose');
 const extend = require('mongoose-schema-extend');
 const AbstractUserSchema = require('./abstractUsuario');
+
+const binarySearch = require('../modules/binarySearch');
 
 const clienteSchema = AbstractUserSchema.extend({
 	Comprador: {
@@ -40,5 +44,58 @@ const clienteSchema = AbstractUserSchema.extend({
 		}],
 	},
 });
+
+function validType(type, subtype) {
+	let valid = true;
+
+	switch (type) {
+	case 'Comprador':
+	case 'Vendedor':
+		break;
+	default:
+		valid = false;
+	}
+
+	switch (subtype) {
+	case 'currentAuctions':
+	case 'finalizedAuctions':
+	case 'paymentPendingAuctions':
+	case 'validationPendingAuctions':
+	case 'cancelledAuctions':
+		break;
+	default:
+		valid = false;
+	}
+}
+
+clienteSchema.methods.addAuction = function addAuction(auction, type, subtype) {
+	const valid = validType(type, subtype);
+
+	if (!valid) { // passed invalid type or subtype
+		return false;
+	}
+
+	const index = binarySearch(this[type][subtype], auction);
+	if (index < 0) {
+		this[type][subtype] = auction;
+		return true;
+	}
+	return false;
+};
+
+clienteSchema.methods.removeAuction = function removeAuction(auction, type, subtype) {
+	const valid = validType(type, subtype);
+
+	if (!valid) { // passed invalid type or subtype
+		return false;
+	}
+
+	const index = binarySearch(this[type][subtype], auction);
+	if (index >= 0) {
+		this[type][subtype].splice(index, 1);
+		return true;
+	}
+	return false;
+};
 
 module.exports = mongoose.model('Cliente', clienteSchema);
