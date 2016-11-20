@@ -64,7 +64,7 @@ auctionSchema.methods.newAuction = function newAuction(form, seller, done) {
 	book.newBook(obj);
 	auction.book = book._id;
 
-	Cliente.findByID(seller, (err, vendedor) => {
+	Cliente.findById(seller, (err, vendedor) => {
 		vendedor.addAuction(this._id, 'Vendedor', 'validationPendingAuctions');
 		vendedor.save();
 	});
@@ -105,11 +105,10 @@ auctionSchema.methods.newBid = function newBid(bidder, value) {
 		this.topBidder = bidder;
 		this.bids.push(bid);
 
-		Cliente.findByID(bidder, (err, cliente) => {
+		Cliente.findById(bidder, (err, cliente) => {
 			cliente.addAuction(this._id, 'Comprador', 'currentAuctions');
 			cliente.save();
 		});
-
 
 		return bid;
 	}

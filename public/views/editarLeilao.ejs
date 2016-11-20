@@ -24,7 +24,7 @@
 			<div class="ui container" style="margin-top: 1em;">
 				<div class="ui segment">
 					<h1>Livro</h1>
-					<form class="ui form" action="/leilao/editar" method="post" id="editarleilao">
+					<form class="ui form" action="/api/leilao/alterar" method="post" id="editarleilao">
 						<input type="text" name="id" class="hidden" value="<%= leilao._id %>">
 						<input type="text" name="bookid" class="hidden" value="<%= leilao.book._id %>">
 					  <div class="equal width fields">

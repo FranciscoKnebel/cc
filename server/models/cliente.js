@@ -66,18 +66,19 @@ function validType(type, subtype) {
 	default:
 		valid = false;
 	}
+
+	return valid;
 }
 
 clienteSchema.methods.addAuction = function addAuction(auction, type, subtype) {
 	const valid = validType(type, subtype);
-
 	if (!valid) { // passed invalid type or subtype
 		return false;
 	}
 
 	const index = binarySearch(this[type][subtype], auction);
 	if (index < 0) {
-		this[type][subtype] = auction;
+		this[type][subtype].push(auction);
 		return true;
 	}
 	return false;
@@ -96,6 +97,11 @@ clienteSchema.methods.removeAuction = function removeAuction(auction, type, subt
 		return true;
 	}
 	return false;
+};
+
+clienteSchema.methods.updateState = function updateAuction(auction, type, oldtype, newtype) {
+	this.removeAuction(auction, type, oldtype);
+	return this.addAuction(auction, type, newtype);
 };
 
 module.exports = mongoose.model('Cliente', clienteSchema);
