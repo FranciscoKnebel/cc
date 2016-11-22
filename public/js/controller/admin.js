@@ -32,7 +32,7 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 				return item._id !== id;
 			});
 
-			$scope.message = "Leilão " + id + " validado corretamente.";
+			alert("Leilão " + id + " validado corretamente.");
 
 			$scope.loading = {
 				state: false,
@@ -44,11 +44,6 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 				state: false,
 			};
 		});
-	};
-
-	$scope.editarLeilao = function editarLeilao(id) {
-		console.log(id);
-		return;
 	};
 
 	function carregarLeiloesPendentes() {
@@ -97,6 +92,62 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 			break;
 		}
 	}
+
+	$scope.propertyName = 'limitDate';
+	$scope.reverse = false;
+
+	function buscarTodosLeiloes() {
+		const config = {
+			method: 'GET',
+			url: '/api/leilao/buscar',
+			params: {
+				listAll: true,
+				state: 'currentAuctions',
+			},
+		};
+
+		$scope.leiloes = [];
+		$scope.loading = {
+			message: 'Carregando leilões...',
+			state: true,
+		};
+		$http(config).then(function successCallback(response) {
+			if (response.data.length > 0) {
+				$scope.leiloes = response.data;
+			} else {
+				$scope.leiloes = [];
+				$scope.message = 'Não há leilões em andamento no sistema.';
+			}
+
+			$scope.loading = {
+				state: false,
+			};
+		}, function errorCallback(response) {
+			console.log('failure', response);
+			$scope.error = response.statusText;
+			$scope.loading = {
+				state: false,
+			};
+		});
+	}
+
+	$scope.refresh = function refresh(type) {
+		switch (type) {
+		case 'validationPendingAuctions':
+			carregarLeiloesPendentes();
+			break;
+		case 'currentAuctions':
+			buscarTodosLeiloes();
+			break;
+		default:
+			buscarTodosLeiloes();
+		}
+	};
+
+	$scope.ordenar = function ordenar(propertyName) {
+		$scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+		$scope.propertyName = propertyName;
+	};
 
 	pageRouter($location.path());
 });
