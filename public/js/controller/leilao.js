@@ -65,7 +65,7 @@ ngapp.controller('leilaoController', function leilaoController($scope, $http, $r
 				$scope.loading = false;
 				$scope.error = false;
 			}, function errorCallback(response) {
-				$scope.error = `${response.status}: ${response.statusText}`;
+				$scope.error = `${response.status}: ${response.data}`;
 				$scope.loading = false;
 			});
 		} else {

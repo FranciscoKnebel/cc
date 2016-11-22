@@ -1,4 +1,63 @@
 const mongoose = require('mongoose');
+const Cliente = require('../../../models/cliente');
+
+function hasReachedLimitDate(auction, currentDate) {
+	const limitDateReached = auction.limitDate < currentDate;
+
+	if (limitDateReached) {
+		if (auction.state === 'currentAuctions') {
+			if (auction.bids.length >= 1) { // possui bids.
+				auction.state = 'paymentPendingAuctions';
+				// + 5 dias para efetuar pagamento
+				auction.limitDate = new Date(auction.limitDate.getTime() + (5 * 24 * 60 * 60 * 1000));
+
+				// atualizar leilão no vendedor
+				Cliente.findById(auction.seller, (err, vendedor) => {
+					vendedor.updateState(auction._id, 'Vendedor', 'currentAuctions', 'paymentPendingAuctions');
+					vendedor.save();
+				});
+
+				// atualizar leilões nos usuários
+				for (const bid of auction.bids) {
+					Cliente.findById(bid.bidder, (err, comprador) => {
+						comprador.updateState(auction._id, 'Comprador', 'currentAuctions', 'paymentPendingAuctions');
+						comprador.save();
+					});
+				}
+			} else {
+				// não possui bids
+				// cancelar o leilão
+				auction.state = 'cancelledAuctions';
+
+				// atualizar leilao no vendedor
+				Cliente.findById(auction.seller, (err, vendedor) => {
+					vendedor.updateState(auction._id, 'Vendedor', 'currentAuctions', 'cancelledAuctions');
+					vendedor.save();
+				});
+			}
+		}
+
+		auction.save();
+	}
+
+	return auction;
+}
+
+function checkAuctions(auctions, listAll) {
+	const response = [];
+	const currentDate = new Date();
+
+	auctions.forEach((elem) => {
+		const oldState = elem.state;
+
+		const auction = hasReachedLimitDate(elem, currentDate);
+		if (auction.state === oldState || listAll) {
+			response.push(auction);
+		}
+	});
+
+	return response;
+}
 
 module.exports = function leilao(app, modules) {
 	app.get('/api/leilao/buscar', (req, res) => {
@@ -10,7 +69,8 @@ module.exports = function leilao(app, modules) {
 							res.status(err.status).send(err);
 						}
 
-						res.send(docs);
+						const auctions = checkAuctions(docs, false);
+						res.send(auctions);
 					});
 				} else {
 					modules.Leilao.find({ state: req.query.state }).populate('book').exec((err, docs) => {
@@ -18,7 +78,8 @@ module.exports = function leilao(app, modules) {
 							res.status(err.status).send(err);
 						}
 
-						res.send(docs);
+						const auctions = checkAuctions(docs, false);
+						res.send(auctions);
 					});
 				}
 			} else {
@@ -27,7 +88,8 @@ module.exports = function leilao(app, modules) {
 						res.status(err.status).send(err);
 					}
 
-					res.send(docs);
+					const auctions = checkAuctions(docs, true);
+					res.send(auctions);
 				});
 			}
 		} else if (!req.query.type && !req.query.id) {
@@ -38,10 +100,15 @@ module.exports = function leilao(app, modules) {
 					if (err) {
 						res.status(400).send(err.message);
 					}
+
 					if (!doc) {
 						res.status(404).send(doc);
 					} else {
-						res.send(doc);
+						const docs = [];
+						docs.push(doc);
+
+						const auctions = checkAuctions(docs, false);
+						res.send(auctions[0]);
 					}
 				});
 			} else {

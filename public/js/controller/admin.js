@@ -26,8 +26,6 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 			state: true,
 		};
 		$http(config).then(function successCallback(response) {
-			console.log('success', response);
-
 			$scope.leiloes = $scope.leiloes.filter(function filterID(item) {
 				return item._id !== id;
 			});

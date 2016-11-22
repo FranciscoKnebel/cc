@@ -11,8 +11,10 @@ module.exports = function alteracao(app, modules) {
 				if (!leilao) {
 					res.status(404).send(`Leilão ${req.body.id} não encontrado.`);
 				} else if (req.body.state) {
+					const oldState = leilao.state;
+
 					modules.Cliente.findById(leilao.seller, (err3, cliente) => {
-						cliente.updateState(leilao._id, 'Vendedor', leilao.state, req.body.state);
+						cliente.updateState(leilao._id, 'Vendedor', oldState, req.body.state);
 						cliente.save();
 					});
 

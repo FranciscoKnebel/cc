@@ -82,7 +82,7 @@ auctionSchema.methods.newBid = function newBid(bidder, value) {
 
 	// max Date not reached. limit Date not reached, so you can bid.
 	if (this.maxDate > currentDate && this.limitDate > currentDate) {
-		if (value <= this.currentPrice) {
+		if (value <= this.currentPrice && this.bids.length > 0) {
 			return false;
 		}
 
@@ -98,6 +98,12 @@ auctionSchema.methods.newBid = function newBid(bidder, value) {
 			this.limitDate = updatedDate;
 		}
 		this.currentPrice = value;
+
+		const newBids = this.bids.filter(function userAlreadyBid(elem) {
+			return (elem.bidder.toString() !== bidder);
+		});
+
+		this.bids = newBids;
 		this.bids.push(bid);
 
 		Cliente.findById(bidder, (err, cliente) => {
@@ -111,7 +117,7 @@ auctionSchema.methods.newBid = function newBid(bidder, value) {
 			state: this.state,
 		};
 	}
-	console.log('Should have already finished the auction.');
+
 	return -1;
 };
 

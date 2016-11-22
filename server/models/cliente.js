@@ -96,11 +96,16 @@ clienteSchema.methods.removeAuction = function removeAuction(auction, type, subt
 		this[type][subtype].splice(index, 1);
 		return true;
 	}
-	return false;
+	return -1;
 };
 
 clienteSchema.methods.updateState = function updateAuction(auction, type, oldtype, newtype) {
-	this.removeAuction(auction, type, oldtype);
+	const remove = this.removeAuction(auction, type, oldtype);
+
+	if (remove === false || remove === -1) {
+		console.log("Erro na remoção de leilão do usuário.", remove);
+	}
+
 	return this.addAuction(auction, type, newtype);
 };
 

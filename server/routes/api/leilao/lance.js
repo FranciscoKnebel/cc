@@ -13,13 +13,12 @@ module.exports = function routes(app, modules) {
       }
 
       const response = auction.newBid(req.user.id, bid);
-
       if (!response) {
         res.status(401).send("Valor do lance menor que o valor atual. Tente novamente.");
-      } else {
+      } else if (response < 0) {
+				res.status(500).send('Should have already finished the auction.');
+			} else {
         auction.save(() => {
-          console.log(response);
-
           res.send(response);
         });
       }
