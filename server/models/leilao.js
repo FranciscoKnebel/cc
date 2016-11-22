@@ -18,10 +18,6 @@ const auctionSchema = mongoose.Schema({
 	initialPrice: Number,
 	currentPrice: Number,
 	finalPrice: Number,
-	topBidder: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Usuario',
-	},
 	bids: [
 		{
 			bidValue: Number,
@@ -85,7 +81,7 @@ auctionSchema.methods.newBid = function newBid(bidder, value) {
 	const currentDate = new Date();
 
 	// max Date not reached. limit Date not reached, so you can bid.
-	if (this.maxDate < currentDate && this.limitDate < currentDate) {
+	if (this.maxDate > currentDate && this.limitDate > currentDate) {
 		if (value <= this.currentPrice) {
 			return false;
 		}
@@ -102,7 +98,6 @@ auctionSchema.methods.newBid = function newBid(bidder, value) {
 			this.limitDate = updatedDate;
 		}
 		this.currentPrice = value;
-		this.topBidder = bidder;
 		this.bids.push(bid);
 
 		Cliente.findById(bidder, (err, cliente) => {
@@ -110,20 +105,14 @@ auctionSchema.methods.newBid = function newBid(bidder, value) {
 			cliente.save();
 		});
 
-		return bid;
+		return {
+			bidValue: bid.bidValue,
+			bids: this.bids,
+			state: this.state,
+		};
 	}
 	console.log('Should have already finished the auction.');
+	return -1;
 };
-
-// auctionSchema.methods.state = function changeState(newState) {
-	/*
-		cancelado
-		pendente
-		currentAuctions
-		pagamentopendente
-		retiradapendente
-		finalizado
-	*/
-// };
 
 module.exports = mongoose.model('Leilao', auctionSchema);

@@ -32,7 +32,7 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 				return item._id !== id;
 			});
 
-			alert("Leilão " + id + " validado corretamente.");
+			alert(`Leilão ${id} validado corretamente.`);
 
 			$scope.loading = {
 				state: false,

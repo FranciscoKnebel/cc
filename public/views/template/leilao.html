@@ -12,7 +12,7 @@
 					<h2 class="" style="margin-top: 0;"><i>{{leilao.book.author}}</i></h2>
 				</div>
 			</div>
-			<div class="eight wide tablet six wide computer column">
+			<div class="eight wide tablet seven wide computer column">
 				<img ng-src="{{leilao.book.images[0]}}" class="ui left floated spaced bordered small image"/>
 
 				<h2 style="margin-top: 0;">
@@ -28,7 +28,7 @@
 				</p>
 				<p style="margin-top: 4.5em;">
 					<br>
-					Lance atual: {{leilao.currentPrice}}
+					Preço atual: {{leilao.currentPrice}}
 					<br>
 					Novo lance mínimo: {{leilao.nextPrice}}
 					<br>
@@ -38,7 +38,7 @@
 					<button type="button" class="ui green button" ng-class="{disabled : leilao.state != 'currentAuctions'}" ng-click="efetuarLance()">Efetuar lance</button>
 				</p>
 			</div>
-			<div class="eight wide tablet ten wide computer column">
+			<div class="eight wide tablet nine wide computer column">
 				<div class="ui message">
 					<p>
 						{{leilao.description}}
@@ -46,5 +46,8 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="ui big buttons" style="margin-top: 0.5em;">
+		<a href="/app" class="ui red button">Voltar</a>
 	</div>
 </div>
