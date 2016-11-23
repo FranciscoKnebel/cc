@@ -15,7 +15,7 @@
 				<% include ../snippets/navbar/navbar-fixed %>
 
 				<div class="ui text container">
-					<h1 class="ui inverted header">
+					<h1 class="ui inverted header" style="margin-top: 0.5em;">
 						Cooper Comics
 					</h1>
 				</div>
@@ -33,97 +33,211 @@
 					</div>
 				<% } %>
 
-				<div class="ui top attached huge buttons" style="margin-top: 2em;">
-					<a class="ui primary button" href="/leilao/criar">Criar Leilão</a>
-					<a class="ui green button" href="/leilao/buscar">Buscar Leilão</a>
-					<a class="ui secondary button" href="/leilao/listar">Listar Leilões</a>
-				</div>
+				<div class="ui grid">
+					<div class="tablet only computer only row">
+						<div class="ui top attached huge buttons" style="margin-top: 2em;">
+							<a class="ui primary button" href="/leilao/criar">Criar Leilão</a>
+							<a class="ui green button" href="/leilao/buscar">Buscar Leilão</a>
+							<a class="ui secondary button" href="/leilao/listar">Listar Leilões</a>
+						</div>
+						<div class="ui container fluid" style="margin-right: 0 !important; margin-left: 0 !important;">
+							<div class="ui attached segment">
+								<h1>
+									Olá, <%= user.name %>. Bem-vindo à Cooper Comics!
+								</h1>
 
-				<div class="ui container fluid">
-					<div class="ui attached segment">
-						<h1>
-							Olá, <%= user.name %>. Bem-vindo à Cooper Comics!
-						</h1>
+								<h2>
+									Leilões como Comprador:
+								</h2>
+								<div class="ui orange statistics">
+									<div class="ui statistic">
+									  <div class="value">
+									    <%= user.Comprador.currentAuctions.length %>
+									  </div>
+									  <div class="label">
+									    Em andamento
+									  </div>
+									</div>
+									<div class="ui statistic">
+									  <div class="value">
+									    <%= user.Comprador.paymentPendingAuctions.length %>
+									  </div>
+									  <div class="label">
+									    Pagamento Pendente
+									  </div>
+									</div>
+									<div class="ui statistic">
+									  <div class="value">
+									    <%= user.Comprador.finalizedAuctions.length %>
+									  </div>
+									  <div class="label">
+									    Finalizados
+									  </div>
+									</div>
+								</div>
 
-						<h2>
-							Leilões como Comprador:
-						</h2>
-						<div class="ui orange statistics">
-							<div class="ui statistic">
-							  <div class="value">
-							    <%= user.Comprador.currentAuctions.length %>
-							  </div>
-							  <div class="label">
-							    Em andamento
-							  </div>
-							</div>
-							<div class="ui statistic">
-							  <div class="value">
-							    <%= user.Comprador.paymentPendingAuctions.length %>
-							  </div>
-							  <div class="label">
-							    Pagamento Pendente
-							  </div>
-							</div>
-							<div class="ui statistic">
-							  <div class="value">
-							    <%= user.Comprador.finalizedAuctions.length %>
-							  </div>
-							  <div class="label">
-							    Finalizados
-							  </div>
+								<h2>
+									Leilões como Vendedor:
+								</h2>
+								<div class="ui violet statistics">
+									<div class="ui statistic">
+									  <div class="value">
+									    <%= user.Vendedor.currentAuctions.length %>
+									  </div>
+									  <div class="label">
+									    Em andamento
+									  </div>
+									</div>
+									<div class="ui statistic">
+									  <div class="value">
+									    <%= user.Vendedor.paymentPendingAuctions.length %>
+									  </div>
+									  <div class="label">
+									    Pagamento Pendente
+									  </div>
+									</div>
+									<div class="ui statistic">
+									  <div class="value">
+									    <%= user.Vendedor.finalizedAuctions.length %>
+									  </div>
+									  <div class="label">
+									    Finalizados
+									  </div>
+									</div>
+									<div class="ui statistic">
+									  <div class="value">
+									    <%= user.Vendedor.validationPendingAuctions.length %>
+									  </div>
+									  <div class="label">
+									    Validação Pendente
+									  </div>
+									</div>
+									<div class="ui statistic">
+									  <div class="value">
+									    <%= user.Vendedor.cancelledAuctions.length %>
+									  </div>
+									  <div class="label">
+									    Cancelados
+									  </div>
+									</div>
+								</div>
 							</div>
 						</div>
-
-						<h2>
-							Leilões como Vendedor:
-						</h2>
-						<div class="ui violet statistics">
-							<div class="ui statistic">
-							  <div class="value">
-							    <%= user.Vendedor.currentAuctions.length %>
-							  </div>
-							  <div class="label">
-							    Em andamento
-							  </div>
-							</div>
-							<div class="ui statistic">
-							  <div class="value">
-							    <%= user.Vendedor.paymentPendingAuctions.length %>
-							  </div>
-							  <div class="label">
-							    Pagamento Pendente
-							  </div>
-							</div>
-							<div class="ui statistic">
-							  <div class="value">
-							    <%= user.Vendedor.finalizedAuctions.length %>
-							  </div>
-							  <div class="label">
-							    Finalizados
-							  </div>
-							</div>
-							<div class="ui statistic">
-							  <div class="value">
-							    <%= user.Vendedor.validationPendingAuctions.length %>
-							  </div>
-							  <div class="label">
-							    Validação Pendente
-							  </div>
-							</div>
-							<div class="ui statistic">
-							  <div class="value">
-							    <%= user.Vendedor.cancelledAuctions.length %>
-							  </div>
-							  <div class="label">
-							    Cancelados
-							  </div>
-							</div>
+						<div class="ui bottom attached big buttons">
+							<a class="ui teal button" href="#">Visualizar Relatórios</a>
 						</div>
 					</div>
-				</div>
-				<div class="ui bottom attached big buttons">
-					<a class="ui button" href="#">Visualizar Relatórios</a>
+					<div class="mobile only row">
+						<div class="ui attached segment">
+							<a class="ui primary button" href="/leilao/criar">Criar Leilão</a>
+							<a class="ui green button" href="/leilao/buscar">Buscar Leilão</a>
+							<a class="ui secondary button" href="/leilao/listar">Listar Leilões</a>
+							<h1>
+								Olá, <%= user.name %>. Bem-vindo à Cooper Comics!
+							</h1>
+
+							<h2>
+								Leilões como Comprador:
+							</h2>
+							<div class="ui list">
+								<a class="item">
+									<i class="right triangle icon"></i>
+									<div class="content">
+										<div class="header">
+											Em andamento
+										</div>
+										<div class="description">
+											<%= user.Comprador.currentAuctions.length %>
+										</div>
+									</div>
+								</a>
+								<a class="item">
+									<i class="right triangle icon"></i>
+									<div class="content">
+										<div class="header">
+											Pagamento Pendente
+										</div>
+										<div class="description">
+											<%= user.Comprador.paymentPendingAuctions.length %>
+										</div>
+									</div>
+								</a>
+								<a class="item">
+									<i class="right triangle icon"></i>
+									<div class="content">
+										<div class="header">
+											Finalizados
+										</div>
+										<div class="description">
+											<%= user.Comprador.finalizedAuctions.length %>
+										</div>
+									</div>
+								</a>
+							</div>
+
+							<h2>
+								Leilões como Vendedor:
+							</h2>
+							<div class="ui list">
+								<a class="item">
+									<i class="right triangle icon"></i>
+									<div class="content">
+										<div class="header">
+											Em andamento
+										</div>
+										<div class="description">
+											<%= user.Vendedor.currentAuctions.length %>
+										</div>
+									</div>
+								</a>
+								<a class="item">
+									<i class="right triangle icon"></i>
+									<div class="content">
+										<div class="header">
+											Pagamento Pendente
+										</div>
+										<div class="description">
+											<%= user.Vendedor.paymentPendingAuctions.length %>
+										</div>
+									</div>
+								</a>
+								<a class="item">
+									<i class="right triangle icon"></i>
+									<div class="content">
+										<div class="header">
+											Finalizados
+										</div>
+										<div class="description">
+											<%= user.Comprador.finalizedAuctions.length %>
+										</div>
+									</div>
+								</a>
+								<a class="item">
+									<i class="right triangle icon"></i>
+									<div class="content">
+										<div class="header">
+											Validação Pendente
+										</div>
+										<div class="description">
+											<%= user.Vendedor.validationPendingAuctions.length %>
+										</div>
+									</div>
+								</a>
+								<a class="item">
+									<i class="right triangle icon"></i>
+									<div class="content">
+										<div class="header">
+											Cancelados
+										</div>
+										<div class="description">
+											<%= user.Vendedor.cancelledAuctions.length %>
+										</div>
+									</div>
+								</a>
+							</div>
+							<a class="ui teal button" href="#">Visualizar Relatórios</a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<% include ../snippets/footer %>

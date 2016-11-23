@@ -2,40 +2,40 @@
   <div class="ui center aligned container">
     <div class="ui inverted divided three column grid">
       <div class="column">
-        <!--<h4 class="ui inverted header">---</h4>-->
+        <h4 class="ui inverted header">Main</h4>
         <div class="ui inverted link list">
-          <a href="#" class="item">Link One</a>
-          <a href="#" class="item">Link Two</a>
-          <a href="#" class="item">Link Two</a>
-          <a href="#" class="item">Link Two</a>
+          <a href="/" class="item" target="_self">Home</a>
+          <a href="/app" class="item" target="_self">Aplicativo</a>
+          <a href="/contato" class="item" target="_self">Contato</a>
         </div>
       </div>
       <div class="column">
-        <!--<h4 class="ui inverted header">---</h4>-->
-        <div class="ui inverted link list">
-          <a href="#" class="item">Link One</a>
-          <a href="#" class="item">Link Two</a>
-          <a href="#" class="item">Link One</a>
-          <a href="#" class="item">Link Two</a>
-        </div>
+				<% if(typeof user !== "undefined") { %>
+					<h4 class="ui inverted header">Leilão</h4>
+	        <div class="ui inverted link list">
+	          <a href="/leilao/criar" class="item" target="_self">Criar</a>
+	          <a href="/leilao/buscar" class="item" target="_self">Buscar</a>
+	          <a href="/leilao/listar" class="item" target="_self">Listar</a>
+	          <a href="#" class="item" target="_self">Relatórios</a>
+	        </div>
+				<% } %>
       </div>
       <div class="column">
-        <!--<h4 class="ui inverted header">---</h4>-->
-        <div class="ui inverted link list">
-          <a href="#" class="item">Link One</a>
-          <a href="#" class="item">Link Two</a>
-          <a href="#" class="item">Link One</a>
-          <a href="#" class="item">Link Two</a>
-        </div>
+			<h4 class="ui inverted header">Social</h4>
+				<div class="ui inverted link list">
+					<a href="#" class="item" target="_self">Facebook</a>
+					<a href="#" class="item" target="_self">Twitter</a>
+					<a href="#" class="item" target="_self">YouTube</a>
+					<a href="#" class="item" target="_self">Instagram</a>
+				</div>
       </div>
     </div>
     <div class="ui inverted section divider"></div>
     <img src="/img/cooper.jpg" class="ui centered tiny image" alt="Cooper Comics">
     <div class="ui horizontal inverted small divided link list">
-      <a class="item" href="/sitemap.xml">Sitemap</a>
-      <a class="item" href="/contato">Contato</a>
-      <a class="item" href="#">Termos e Condições</a>
-      <a class="item" href="#">Política de Privacidade</a>
+      <a class="item" href="/sitemap.xml" target="_self">Sitemap</a>
+      <a class="item" href="#" target="_self">Termos e Condições</a>
+      <a class="item" href="#" target="_self">Política de Privacidade</a>
     </div>
   </div>
 </footer>

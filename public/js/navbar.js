@@ -16,7 +16,7 @@ $(document).ready(() => {
 		mobileTransition: 'overlay',
 	});
 
-	const pgurl = window.location.href.substr(window.location.href.lastIndexOf('/'));
+	const pgurl = location.pathname;
 	function addActive() {
 		if ($(this).attr('href') === pgurl || $(this).attr('href') === '') {
 			$(this).addClass('active');

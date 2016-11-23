@@ -13,16 +13,22 @@
 		<a ng-click="refresh()" class="ui green button">Refresh</a>
 	</div>
 
-	<div class="ui big right floated buttons">
+	<div class="ui right floated buttons">
 		<button class="ui primary button" ng-click="ordenar('limitDate')"><i class="clock icon"></i></button>
 		<button class="ui green button" ng-click="ordenar('currentPrice')"><i class="sort content ascending icon"></i></button>
 		<button class="ui secondary button" ng-click="ordenar('book.title')"><i class="sort alphabet ascending icon"></i></button>
 	</div>
 
-	<div class="ui input">
+	<div class="ui labeled input">
+		<div class="ui label">
+			Título
+		</div>
 		<input type="search" ng-model="search.book.title" placeholder="Filtrar por Título" aria-label="filtrar por título" />
 	</div>
-	<div class="ui input">
+	<div class="ui labeled input">
+		<div class="ui label">
+			Edição
+		</div>
 		<input type="search" ng-model="search.book.edition" placeholder="Filtrar por Edição" aria-label="filtrar por edição" />
 	</div>
 

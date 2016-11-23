@@ -17,7 +17,7 @@ const auctionSchema = mongoose.Schema({
 	maxDate: Date,
 	initialPrice: Number,
 	currentPrice: Number,
-	finalPrice: Number,
+	winningBid: Number,
 	bids: [
 		{
 			bidValue: Number,

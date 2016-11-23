@@ -1,3 +1,5 @@
+'use strict';
+
 const mongoose = require('mongoose');
 const Cliente = require('../../../models/cliente');
 
@@ -8,6 +10,7 @@ function hasReachedLimitDate(auction, currentDate) {
 		if (auction.state === 'currentAuctions') {
 			if (auction.bids.length >= 1) { // possui bids.
 				auction.state = 'paymentPendingAuctions';
+				auction.winningBid = auction.bids.length - 1;
 				// + 5 dias para efetuar pagamento
 				auction.limitDate = new Date(auction.limitDate.getTime() + (5 * 24 * 60 * 60 * 1000));
 
@@ -18,12 +21,12 @@ function hasReachedLimitDate(auction, currentDate) {
 				});
 
 				// atualizar leilões nos usuários
-				for (const bid of auction.bids) {
-					Cliente.findById(bid.bidder, (err, comprador) => {
-						comprador.updateState(auction._id, 'Comprador', 'currentAuctions', 'paymentPendingAuctions');
-						comprador.save();
-					});
-				}
+				const topbid = auction.bids[auction.winningBid];
+				Cliente.findById(topbid.bidder, (err, comprador) => {
+					comprador.updateState(auction._id, 'Comprador', 'currentAuctions', 'paymentPendingAuctions');
+					comprador.save();
+					// enviar e-mail para o comprador avisando que seu lance ganhou.
+				});
 			} else {
 				// não possui bids
 				// cancelar o leilão
@@ -33,6 +36,39 @@ function hasReachedLimitDate(auction, currentDate) {
 				Cliente.findById(auction.seller, (err, vendedor) => {
 					vendedor.updateState(auction._id, 'Vendedor', 'currentAuctions', 'cancelledAuctions');
 					vendedor.save();
+				});
+			}
+		} else if (auction.state === 'paymentPendingAuctions') {
+			if (auction.winningBid > 0) { // index dentro de bids do lance vencedor
+				auction.limitDate = new Date(auction.limitDate.getTime() + (5 * 24 * 60 * 60 * 1000));
+
+				const topbid = auction.bids[auction.winningBid];
+				Cliente.findById(topbid.bidder, (err, comprador) => {
+					comprador.removeAuction(auction._id, 'Comprador', 'paymentPendingAuctions');
+					comprador.save();
+					// enviar e-mail para o comprador avisando que seu tempo para efetuar o pagamento acabou.
+				});
+
+				auction.winningBid -= 1;
+				const secondbid = auction.bids[auction.winningBid];
+				auction.currentPrice = auction.bids[auction.winningBid].bidValue;
+				Cliente.findById(secondbid.bidder, (err, comprador) => {
+					comprador.updateState(auction._id, 'Comprador', 'currentAuctions', 'paymentPendingAuctions');
+					comprador.save();
+					// enviar e-mail para o comprador avisando que seu lance ganhou.
+				});
+			} else { // não há mais lances válidos, então é necessário cancelar leilão
+				// atualizar leilão no vendedor
+				Cliente.findById(auction.seller, (err, vendedor) => {
+					vendedor.updateState(auction._id, 'Vendedor', 'paymentPendingAuctions', 'cancelledAuctions');
+					vendedor.save();
+				});
+
+				const topbid = auction.bids[0];
+				Cliente.findById(topbid.bidder, (err, comprador) => {
+					comprador.removeAuction(auction._id, 'Comprador', 'paymentPendingAuctions');
+					comprador.save();
+					// enviar e-mail para o comprador avisando que seu tempo para efetuar o pagamento acabou.
 				});
 			}
 		}
