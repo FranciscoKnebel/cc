@@ -12,5 +12,6 @@ Library.prototype.isLoggedIn = require('./isLoggedIn');
 Library.prototype.isLoggedOut = require('./isLoggedOut');
 
 Library.prototype.binarySearch = require('./binarySearch');
+Library.prototype.validType = require('./validType');
 
 module.exports = exports = new Library();

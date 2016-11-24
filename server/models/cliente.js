@@ -5,6 +5,7 @@ const extend = require('mongoose-schema-extend');
 const AbstractUserSchema = require('./abstractUsuario');
 
 const binarySearch = require('../modules/binarySearch');
+const validType = require('../modules/validType');
 
 const clienteSchema = AbstractUserSchema.extend({
 	Comprador: {
@@ -45,31 +46,6 @@ const clienteSchema = AbstractUserSchema.extend({
 	},
 });
 
-function validType(type, subtype) {
-	let valid = true;
-
-	switch (type) {
-	case 'Comprador':
-	case 'Vendedor':
-		break;
-	default:
-		valid = false;
-	}
-
-	switch (subtype) {
-	case 'currentAuctions':
-	case 'finalizedAuctions':
-	case 'paymentPendingAuctions':
-	case 'validationPendingAuctions':
-	case 'cancelledAuctions':
-		break;
-	default:
-		valid = false;
-	}
-
-	return valid;
-}
-
 clienteSchema.methods.addAuction = function addAuction(auction, type, subtype) {
 	const valid = validType(type, subtype);
 	if (!valid) { // passed invalid type or subtype
@@ -100,10 +76,16 @@ clienteSchema.methods.removeAuction = function removeAuction(auction, type, subt
 };
 
 clienteSchema.methods.updateState = function updateAuction(auction, type, oldtype, newtype) {
+	if (oldtype === newtype) {
+		console.log('Types are equal, so would remove and insert to same subtype.');
+		return -1;
+	}
+
 	const remove = this.removeAuction(auction, type, oldtype);
 
 	if (remove === false || remove === -1) {
-		console.log("Erro na remoção de leilão do usuário.", remove);
+		console.log('Erro na remoção de leilão do usuário: ', remove);
+		return remove;
 	}
 
 	return this.addAuction(auction, type, newtype);

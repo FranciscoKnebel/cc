@@ -50,29 +50,30 @@
 									Leilões como Comprador:
 								</h2>
 								<div class="ui orange statistics">
+
 									<div class="ui statistic">
-									  <div class="value">
-									    <%= user.Comprador.currentAuctions.length %>
-									  </div>
-									  <div class="label">
+									  <a class="value" href="/leilao/usuario/Comprador/currentAuctions">
+								    	<%= user.Comprador.currentAuctions.length %>
+									  </a>
+									  <a class="label" href="/leilao/usuario/Comprador/currentAuctions">
 									    Em andamento
-									  </div>
+									  </a>
 									</div>
 									<div class="ui statistic">
-									  <div class="value">
+									  <a class="value" href="/leilao/usuario/Comprador/paymentPendingAuctions">
 									    <%= user.Comprador.paymentPendingAuctions.length %>
-									  </div>
-									  <div class="label">
+									  </a>
+									  <a class="label" href="/leilao/usuario/Comprador/paymentPendingAuctions">
 									    Pagamento Pendente
-									  </div>
+									  </a>
 									</div>
 									<div class="ui statistic">
-									  <div class="value">
+									  <a class="value" href="/leilao/usuario/Comprador/finalizedAuctions">
 									    <%= user.Comprador.finalizedAuctions.length %>
-									  </div>
-									  <div class="label">
+									  </a>
+									  <a class="label" href="/leilao/usuario/Comprador/finalizedAuctions">
 									    Finalizados
-									  </div>
+									  </a>
 									</div>
 								</div>
 
@@ -81,44 +82,44 @@
 								</h2>
 								<div class="ui violet statistics">
 									<div class="ui statistic">
-									  <div class="value">
+									  <a class="value" href="/leilao/usuario/Vendedor/currentAuctions">
 									    <%= user.Vendedor.currentAuctions.length %>
-									  </div>
-									  <div class="label">
+									  </a>
+									  <a class="label" href="/leilao/usuario/Vendedor/currentAuctions">
 									    Em andamento
-									  </div>
+									  </a>
 									</div>
 									<div class="ui statistic">
-									  <div class="value">
+									  <a class="value" href="/leilao/usuario/Vendedor/paymentPendingAuctions">
 									    <%= user.Vendedor.paymentPendingAuctions.length %>
-									  </div>
-									  <div class="label">
+									  </a>
+									  <a class="label" href="/leilao/usuario/Vendedor/paymentPendingAuctions">
 									    Pagamento Pendente
-									  </div>
+									  </a>
 									</div>
 									<div class="ui statistic">
-									  <div class="value">
+									  <a class="value" href="/leilao/usuario/Vendedor/finalizedAuctions">
 									    <%= user.Vendedor.finalizedAuctions.length %>
-									  </div>
-									  <div class="label">
+									  </a>
+									  <a class="label" href="/leilao/usuario/Vendedor/finalizedAuctions">
 									    Finalizados
-									  </div>
+									  </a>
 									</div>
 									<div class="ui statistic">
-									  <div class="value">
+									  <a class="value" href="/leilao/usuario/Vendedor/validationPendingAuctions">
 									    <%= user.Vendedor.validationPendingAuctions.length %>
-									  </div>
-									  <div class="label">
+									  </a>
+									  <a class="label" href="/leilao/usuario/Vendedor/validationPendingAuctions">
 									    Validação Pendente
-									  </div>
+									  </a>
 									</div>
 									<div class="ui statistic">
-									  <div class="value">
+									  <a class="value" href="/leilao/usuario/Vendedor/cancelledAuctions">
 									    <%= user.Vendedor.cancelledAuctions.length %>
-									  </div>
-									  <div class="label">
+									  </a>
+									  <a class="label" href="/leilao/usuario/Vendedor/cancelledAuctions">
 									    Cancelados
-									  </div>
+									  </a>
 									</div>
 								</div>
 							</div>
@@ -139,8 +140,8 @@
 							<h2>
 								Leilões como Comprador:
 							</h2>
-							<div class="ui list">
-								<a class="item">
+							<div class="ui link list">
+								<a class="item" href="/leilao/usuario/Comprador/currentAuctions">
 									<i class="right triangle icon"></i>
 									<div class="content">
 										<div class="header">
@@ -151,7 +152,7 @@
 										</div>
 									</div>
 								</a>
-								<a class="item">
+								<a class="item"  href="/leilao/usuario/Comprador/paymentPendingAuctions">
 									<i class="right triangle icon"></i>
 									<div class="content">
 										<div class="header">
@@ -162,7 +163,7 @@
 										</div>
 									</div>
 								</a>
-								<a class="item">
+								<a class="item" href="/leilao/usuario/Comprador/finalizedAuctions">
 									<i class="right triangle icon"></i>
 									<div class="content">
 										<div class="header">
@@ -178,8 +179,8 @@
 							<h2>
 								Leilões como Vendedor:
 							</h2>
-							<div class="ui list">
-								<a class="item">
+							<div class="ui link list">
+								<a class="item" href="/leilao/usuario/Vendedor/currentAuctions">
 									<i class="right triangle icon"></i>
 									<div class="content">
 										<div class="header">
@@ -190,7 +191,7 @@
 										</div>
 									</div>
 								</a>
-								<a class="item">
+								<a class="item" href="/leilao/usuario/Vendedor/paymentPendingAuctions">
 									<i class="right triangle icon"></i>
 									<div class="content">
 										<div class="header">
@@ -201,7 +202,7 @@
 										</div>
 									</div>
 								</a>
-								<a class="item">
+								<a class="item" href="/leilao/usuario/Vendedor/finalizedAuctions">
 									<i class="right triangle icon"></i>
 									<div class="content">
 										<div class="header">
@@ -212,7 +213,7 @@
 										</div>
 									</div>
 								</a>
-								<a class="item">
+								<a class="item" href="/leilao/usuario/Vendedor/validationPendingAuctions">
 									<i class="right triangle icon"></i>
 									<div class="content">
 										<div class="header">
@@ -223,7 +224,7 @@
 										</div>
 									</div>
 								</a>
-								<a class="item">
+								<a class="item" href="/leilao/usuario/Vendedor/cancelledAuctions">
 									<i class="right triangle icon"></i>
 									<div class="content">
 										<div class="header">
