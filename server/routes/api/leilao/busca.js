@@ -1,6 +1,9 @@
+/* eslint max-len: 0 */
+
 'use strict';
 
 const mongoose = require('mongoose');
+const q = require('q');
 const Cliente = require('../../../models/cliente');
 
 function hasReachedLimitDate(auction, currentDate) {
@@ -17,15 +20,15 @@ function hasReachedLimitDate(auction, currentDate) {
 				// atualizar leilão no vendedor
 				Cliente.findById(auction.seller, (err, vendedor) => {
 					vendedor.updateState(auction._id, 'Vendedor', 'currentAuctions', 'paymentPendingAuctions');
-					vendedor.save();
-				});
-
-				// atualizar leilões nos usuários
-				const topbid = auction.bids[auction.winningBid];
-				Cliente.findById(topbid.bidder, (err, comprador) => {
-					comprador.updateState(auction._id, 'Comprador', 'currentAuctions', 'paymentPendingAuctions');
-					comprador.save();
-					// enviar e-mail para o comprador avisando que seu lance ganhou.
+					vendedor.save(() => {
+						// atualizar leilões nos usuários
+						const topbid = auction.bids[auction.winningBid];
+						Cliente.findById(topbid.bidder, (err2, comprador) => {
+							comprador.updateState(auction._id, 'Comprador', 'currentAuctions', 'paymentPendingAuctions');
+							comprador.save();
+							// enviar e-mail para o comprador avisando que seu lance ganhou.
+						});
+					});
 				});
 			} else {
 				// não possui bids
@@ -45,30 +48,31 @@ function hasReachedLimitDate(auction, currentDate) {
 				const topbid = auction.bids[auction.winningBid];
 				Cliente.findById(topbid.bidder, (err, comprador) => {
 					comprador.removeAuction(auction._id, 'Comprador', 'paymentPendingAuctions');
-					comprador.save();
+					comprador.save(() => {
+						auction.winningBid -= 1;
+						const secondbid = auction.bids[auction.winningBid];
+						auction.currentPrice = auction.bids[auction.winningBid].bidValue;
+						Cliente.findById(secondbid.bidder, (err2, comprador2) => {
+							comprador2.updateState(auction._id, 'Comprador', 'currentAuctions', 'paymentPendingAuctions');
+							comprador2.save();
+							// enviar e-mail para o comprador avisando que seu lance ganhou.
+						});
+					});
 					// enviar e-mail para o comprador avisando que seu tempo para efetuar o pagamento acabou.
 				});
-
-				auction.winningBid -= 1;
-				const secondbid = auction.bids[auction.winningBid];
-				auction.currentPrice = auction.bids[auction.winningBid].bidValue;
-				Cliente.findById(secondbid.bidder, (err, comprador) => {
-					comprador.updateState(auction._id, 'Comprador', 'currentAuctions', 'paymentPendingAuctions');
-					comprador.save();
-					// enviar e-mail para o comprador avisando que seu lance ganhou.
-				});
 			} else { // não há mais lances válidos, então é necessário cancelar leilão
+				auction.state = 'cancelledAuctions';
 				// atualizar leilão no vendedor
 				Cliente.findById(auction.seller, (err, vendedor) => {
 					vendedor.updateState(auction._id, 'Vendedor', 'paymentPendingAuctions', 'cancelledAuctions');
-					vendedor.save();
-				});
-
-				const topbid = auction.bids[0];
-				Cliente.findById(topbid.bidder, (err, comprador) => {
-					comprador.removeAuction(auction._id, 'Comprador', 'paymentPendingAuctions');
-					comprador.save();
-					// enviar e-mail para o comprador avisando que seu tempo para efetuar o pagamento acabou.
+					vendedor.save(() => {
+						const topbid = auction.bids[0];
+						Cliente.findById(topbid.bidder, (err2, comprador) => {
+							comprador.removeAuction(auction._id, 'Comprador', 'paymentPendingAuctions');
+							comprador.save();
+							// enviar e-mail para o comprador avisando que tempo para efetuar o pagamento acabou.
+						});
+					});
 				});
 			}
 		}
@@ -95,6 +99,19 @@ function checkAuctions(auctions, listAll) {
 	return response;
 }
 
+function findAuctions(auctions, modules, response, type, subtype) {
+	const promise = modules.Leilao.find({
+		_id: { $in:
+			auctions,
+		},
+	}).populate('book').exec((err, docs) => {
+		const obj = checkAuctions(docs, false);
+		response[type][subtype] = docs;
+	});
+
+	return promise;
+}
+
 module.exports = function leilao(app, modules) {
 	app.get('/api/leilao/buscar', (req, res) => {
 		if (req.query.listAll === 'true') {
@@ -118,6 +135,50 @@ module.exports = function leilao(app, modules) {
 						res.send(auctions);
 					});
 				}
+			} else if (req.body.auctions) {
+				modules.Leilao.find({
+					_id: { $in: req.body.auctions },
+				}).populate('book').exec((err, docs) => {
+					if (err) {
+						res.status(err.status).send(err);
+					}
+
+					const auctions = checkAuctions(docs, false);
+					res.send(auctions);
+				});
+			} else if (req.body.userAuctions) {
+				const obj = req.body.userAuctions;
+				const response = {
+					Comprador: {
+						currentAuctions: [],
+						finalizedAuctions: [],
+						paymentPendingAuctions: [],
+					},
+					Vendedor: {
+						currentAuctions: [],
+						finalizedAuctions: [],
+						paymentPendingAuctions: [],
+						validationPendingAuctions: [],
+						cancelledAuctions: [],
+					},
+				};
+
+				const promises = [
+					findAuctions(obj.Comprador.currentAuctions, modules, response, 'Comprador', 'currentAuctions'),
+					findAuctions(obj.Comprador.paymentPendingAuctions, modules, response, 'Comprador', 'paymentPendingAuctions'),
+					findAuctions(obj.Comprador.finalizedAuctions, modules, response, 'Comprador', 'finalizedAuctions'),
+
+					findAuctions(obj.Vendedor.currentAuctions, modules, response, 'Vendedor', 'currentAuctions'),
+					findAuctions(obj.Vendedor.finalizedAuctions, modules, response, 'Vendedor', 'finalizedAuctions'),
+					findAuctions(obj.Vendedor.paymentPendingAuctions, modules, response, 'Vendedor', 'paymentPendingAuctions'),
+					findAuctions(obj.Vendedor.validationPendingAuctions, modules, response, 'Vendedor', 'validationPendingAuctions'),
+					findAuctions(obj.Vendedor.cancelledAuctions, modules, response, 'Vendedor', 'cancelledAuctions'),
+				];
+
+
+				q.all(promises).then(() => {
+					res.send(response);
+				});
 			} else {
 				modules.Leilao.find().populate('book').exec((err, docs) => {
 					if (err) {
@@ -129,7 +190,7 @@ module.exports = function leilao(app, modules) {
 				});
 			}
 		} else if (!req.query.type && !req.query.id) {
-			res.status(400).send('listAll is false or undefined, so type needs to be defined.');
+			res.status(400).send('listAll is false or undefined, so type or id needs to be defined.');
 		} else if (req.query.id) {
 			if (mongoose.Types.ObjectId.isValid(req.query.id)) {
 				modules.Leilao.findById(req.query.id).populate('book').exec((err, doc) => {

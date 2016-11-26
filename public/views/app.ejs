@@ -53,7 +53,7 @@
 
 									<div class="ui statistic">
 									  <a class="value" href="/leilao/usuario/Comprador/currentAuctions">
-								    	<%= user.Comprador.currentAuctions.length %>
+								    	<%= leiloes.Comprador.currentAuctions.length %>
 									  </a>
 									  <a class="label" href="/leilao/usuario/Comprador/currentAuctions">
 									    Em andamento
@@ -61,7 +61,7 @@
 									</div>
 									<div class="ui statistic">
 									  <a class="value" href="/leilao/usuario/Comprador/paymentPendingAuctions">
-									    <%= user.Comprador.paymentPendingAuctions.length %>
+									    <%= leiloes.Comprador.paymentPendingAuctions.length %>
 									  </a>
 									  <a class="label" href="/leilao/usuario/Comprador/paymentPendingAuctions">
 									    Pagamento Pendente
@@ -69,7 +69,7 @@
 									</div>
 									<div class="ui statistic">
 									  <a class="value" href="/leilao/usuario/Comprador/finalizedAuctions">
-									    <%= user.Comprador.finalizedAuctions.length %>
+									    <%= leiloes.Comprador.finalizedAuctions.length %>
 									  </a>
 									  <a class="label" href="/leilao/usuario/Comprador/finalizedAuctions">
 									    Finalizados
@@ -83,7 +83,7 @@
 								<div class="ui violet statistics">
 									<div class="ui statistic">
 									  <a class="value" href="/leilao/usuario/Vendedor/currentAuctions">
-									    <%= user.Vendedor.currentAuctions.length %>
+									    <%= leiloes.Vendedor.currentAuctions.length %>
 									  </a>
 									  <a class="label" href="/leilao/usuario/Vendedor/currentAuctions">
 									    Em andamento
@@ -91,7 +91,7 @@
 									</div>
 									<div class="ui statistic">
 									  <a class="value" href="/leilao/usuario/Vendedor/paymentPendingAuctions">
-									    <%= user.Vendedor.paymentPendingAuctions.length %>
+									    <%= leiloes.Vendedor.paymentPendingAuctions.length %>
 									  </a>
 									  <a class="label" href="/leilao/usuario/Vendedor/paymentPendingAuctions">
 									    Pagamento Pendente
@@ -99,7 +99,7 @@
 									</div>
 									<div class="ui statistic">
 									  <a class="value" href="/leilao/usuario/Vendedor/finalizedAuctions">
-									    <%= user.Vendedor.finalizedAuctions.length %>
+									    <%= leiloes.Vendedor.finalizedAuctions.length %>
 									  </a>
 									  <a class="label" href="/leilao/usuario/Vendedor/finalizedAuctions">
 									    Finalizados
@@ -107,7 +107,7 @@
 									</div>
 									<div class="ui statistic">
 									  <a class="value" href="/leilao/usuario/Vendedor/validationPendingAuctions">
-									    <%= user.Vendedor.validationPendingAuctions.length %>
+									    <%= leiloes.Vendedor.validationPendingAuctions.length %>
 									  </a>
 									  <a class="label" href="/leilao/usuario/Vendedor/validationPendingAuctions">
 									    Validação Pendente
@@ -115,7 +115,7 @@
 									</div>
 									<div class="ui statistic">
 									  <a class="value" href="/leilao/usuario/Vendedor/cancelledAuctions">
-									    <%= user.Vendedor.cancelledAuctions.length %>
+									    <%= leiloes.Vendedor.cancelledAuctions.length %>
 									  </a>
 									  <a class="label" href="/leilao/usuario/Vendedor/cancelledAuctions">
 									    Cancelados
@@ -123,9 +123,6 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="ui bottom attached big buttons">
-							<a class="ui teal button" href="#">Visualizar Relatórios</a>
 						</div>
 					</div>
 					<div class="mobile only row">
@@ -148,7 +145,7 @@
 											Em andamento
 										</div>
 										<div class="description">
-											<%= user.Comprador.currentAuctions.length %>
+											<%= leiloes.Comprador.currentAuctions.length %>
 										</div>
 									</div>
 								</a>
@@ -159,7 +156,7 @@
 											Pagamento Pendente
 										</div>
 										<div class="description">
-											<%= user.Comprador.paymentPendingAuctions.length %>
+											<%= leiloes.Comprador.paymentPendingAuctions.length %>
 										</div>
 									</div>
 								</a>
@@ -170,7 +167,7 @@
 											Finalizados
 										</div>
 										<div class="description">
-											<%= user.Comprador.finalizedAuctions.length %>
+											<%= leiloes.Comprador.finalizedAuctions.length %>
 										</div>
 									</div>
 								</a>
@@ -187,7 +184,7 @@
 											Em andamento
 										</div>
 										<div class="description">
-											<%= user.Vendedor.currentAuctions.length %>
+											<%= leiloes.Vendedor.currentAuctions.length %>
 										</div>
 									</div>
 								</a>
@@ -198,7 +195,7 @@
 											Pagamento Pendente
 										</div>
 										<div class="description">
-											<%= user.Vendedor.paymentPendingAuctions.length %>
+											<%= leiloes.Vendedor.paymentPendingAuctions.length %>
 										</div>
 									</div>
 								</a>
@@ -209,7 +206,7 @@
 											Finalizados
 										</div>
 										<div class="description">
-											<%= user.Comprador.finalizedAuctions.length %>
+											<%= leiloes.Comprador.finalizedAuctions.length %>
 										</div>
 									</div>
 								</a>
@@ -220,7 +217,7 @@
 											Validação Pendente
 										</div>
 										<div class="description">
-											<%= user.Vendedor.validationPendingAuctions.length %>
+											<%= leiloes.Vendedor.validationPendingAuctions.length %>
 										</div>
 									</div>
 								</a>
@@ -231,12 +228,11 @@
 											Cancelados
 										</div>
 										<div class="description">
-											<%= user.Vendedor.cancelledAuctions.length %>
+											<%= leiloes.Vendedor.cancelledAuctions.length %>
 										</div>
 									</div>
 								</a>
 							</div>
-							<a class="ui teal button" href="#">Visualizar Relatórios</a>
 						</div>
 					</div>
 				</div>

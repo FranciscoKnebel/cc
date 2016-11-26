@@ -33,9 +33,15 @@
 
     	<div class="ui container" style="margin-top: 1em;">
         <div class="ui very padded segment">
-        	<div class="ui big buttons" style="margin-top: 0.5em;">
-        		<a href="/app" class="ui red button">Voltar</a>
-        	</div>
+
+					<h2 class="ui header">
+					  <i class="archive icon"></i>
+					  <div class="content">
+							<%= auctionType %>
+					    <div class="sub header"><%= userType %></div>
+					  </div>
+						<a href="/app" class="ui big inline red button" style="margin-top: 0.5em;">Voltar</a>
+					</h2>
 
         	<div class="ui relaxed divided items">
             <% if(leiloes.length > 0) { %>
@@ -61,6 +67,12 @@
                       <p><%= leilao.description %></p>
                     </div>
                     <div class="extra">
+											<% if(payment) { %>
+												<a href="/leilao/usuario/pagamento/<%= leilao._id %>" class="ui right floated green button"  target="_self">
+													Efetuar Pagamento
+													<i class="right chevron icon"></i>
+												</a>
+											<% } %>
                       <a href="/leilao/<%= leilao._id %>" class="ui right floated primary button"  target="_self">
                         Acessar Leilão
                         <i class="right chevron icon"></i>

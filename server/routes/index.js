@@ -1,3 +1,5 @@
+const request = require('request-promise');
+
 const modules = require('../modules/index');
 
 const paths = require('./static');
@@ -21,14 +23,33 @@ module.exports = function routes(app, dirname, passport) {
 		res.render('contato.ejs', { user: req.user, message: false });
 	});
 
-	app.all('*', modules.isLoggedIn);
 	api(app, modules);
 
 	app.get('/app', (req, res) => {
 		if (req.user._type === 'Administrador') {
 			res.redirect('/admin');
 		} else {
-			res.render('app.ejs', { user: req.user, message: req.flash('appMessage') });
+			const obj = {
+				Comprador: req.user.Comprador,
+				Vendedor: req.user.Vendedor,
+			};
+
+			const options = {
+				uri: process.env.ROOT_URL + '/api/leilao/buscar',
+				json: true, // Automatically parses the JSON string in the response
+				body: {
+					userAuctions: obj,
+				},
+				qs: {
+					listAll: true,
+				},
+			};
+
+			request(options).then((docs) => {
+				res.render('app.ejs', { user: req.user, message: req.flash('appMessage'), leiloes: docs });
+			}).catch((err) => {
+				console.error(err);
+			});
 		}
 	});
 
