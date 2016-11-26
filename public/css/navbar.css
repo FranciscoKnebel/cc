@@ -32,3 +32,15 @@
 		display: none !important;
 	}
 }
+
+.ui.inverted.vertical.masthead.center.aligned.segment {
+	background-color: #952108 !important;
+}
+
+.ui.large.secondary.inverted.pointing.menu {
+	background-color: #952108 !important;
+}
+
+.ui.vertical.inverted.sidebar.menu {
+	background-color: #952108 !important;
+}

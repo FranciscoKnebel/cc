@@ -68,3 +68,7 @@ th.selectable:hover {
 .hidden {
 	display: none;
 }
+
+footer {
+	background-color: #952108 !important;
+}
