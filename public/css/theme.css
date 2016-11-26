@@ -51,7 +51,7 @@ body.pushable > .pusher {
 }
 
 .ui.segment.maisinfo {
-	background-color: rgba(50, 0, 255, 0.6);
+	background-color: rgba(170, 77, 57, 0.7);
 	padding-top: 3em;
 }
 
@@ -67,6 +67,10 @@ th.selectable:hover {
 
 .hidden {
 	display: none;
+}
+
+.ui.inverted.segment {
+	background-color: #952108 !important;
 }
 
 footer {
