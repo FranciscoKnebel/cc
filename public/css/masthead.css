@@ -1,5 +1,9 @@
 .masthead.segment {
-	min-height: 400px;
+	min-height: 300px;
+	margin-top: 0 !important;
+	padding: 1em 0 1em 0 !important;
+  background-image: url('/img/cb_background.jpg') !important;
+	background-repeat: repeat-xy !important;
 }
 
 .masthead .logo.item img {
@@ -34,4 +38,10 @@
     margin-top: 0.5em;
     font-size: 1.5em;
   }
+}
+
+@media only screen and (max-width: 420px) {
+	.masthead.segment {
+		min-height: 100vh;
+	}
 }

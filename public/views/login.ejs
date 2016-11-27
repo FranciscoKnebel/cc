@@ -6,8 +6,8 @@
 		<% include ../snippets/css %>
 
 		<style media="screen">
-			body {
-				background-image: url('/img/cooper.jpg');
+			html {
+				background-image: url('/img/cb_background.jpg');
 			}
 		</style>
 	</head>
@@ -18,14 +18,14 @@
 				<form class="ui large form error" action="/login" method="post">
 					<div class="ui stacked segment">
 						<div class="required field">
-							<label>Email</label>
+							<label style="text-align: left;">Email</label>
 							<div class="ui left icon input">
 								<i class="user icon"></i>
 								<input required type="email" placeholder="E-mail" name="email">
 							</div>
 						</div>
 						<div class="required field">
-							<label>Password</label>
+							<label style="text-align: left;">Password</label>
 							<div class="ui left icon input">
 								<i class="lock icon"></i>
 								<input required type="password" placeholder="Senha" name="password">

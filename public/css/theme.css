@@ -4,9 +4,7 @@ html {
 
 body.pushable > .pusher {
 	background-color: yellow;
-  background-image: url('/img/radial.jpg');
-  background-position: center;
-  background-size: cover;
+	background-image: url('/img/cb_background2.jpg');
 }
 
 .header_nome {
@@ -50,11 +48,6 @@ body.pushable > .pusher {
   padding: 5em 0em;
 }
 
-.ui.segment.maisinfo {
-	background-color: rgba(170, 77, 57, 0.7);
-	padding-top: 3em;
-}
-
 div + .no-items {
   display: none;
 }
@@ -69,13 +62,34 @@ th.selectable:hover {
 	display: none;
 }
 
-.ui.inverted.segment {
+footer.ui.inverted.segment {
+	background-image: url('/img/cb_background_T.png');
 	background-color: #952108 !important;
+	text-shadow: none;
 }
 
-footer {
-	background-color: #952108 !important;
+.ui.inverted.vertical.stripe.segment {
+	background-color: rgb(27, 28, 29);
 }
+
+.ui.vertical.segment {
+	color: white;
+	text-shadow: -1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000;
+
+	background-color: rgba(149,33,8,0.85);
+	margin-top: 2em;
+	padding: 3em;
+}
+
+.ui.segment.maisinfo {
+	background-color: rgb(27, 28, 29);
+}
+
+.ui.vertical.stripe.segment .header {
+ 	color: white;
+	text-shadow: -1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000,
+							 -2px -2px 2px #000, 2px -2px 2px #000, -2px 2px 2px #000, 2px 2px 2px #000;
+ }
 
 .ui.button {
 	transition: 0.5s;
@@ -96,6 +110,6 @@ footer {
 }
 
 .ui.blue.label {
-		border-color: rgba(34, 36, 38, 0.15) !important;
-		border-width: thin;
+	border-color: rgba(34, 36, 38, 0.15) !important;
+	border-width: thin;
 }

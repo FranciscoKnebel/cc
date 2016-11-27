@@ -53,6 +53,34 @@ module.exports = function routes(app, dirname, passport) {
 		}
 	});
 
+	app.get('/relatorios', (req, res) => {
+		if (req.user._type === 'Administrador') {
+			res.redirect('/admin/relatorios');
+		} else {
+			const obj = {
+				Comprador: req.user.Comprador,
+				Vendedor: req.user.Vendedor,
+			};
+
+			const options = {
+				uri: `${process.env.ROOT_URL}/api/leilao/buscar`,
+				json: true, // Automatically parses the JSON string in the response
+				body: {
+					userAuctions: obj,
+				},
+				qs: {
+					listAll: true,
+				},
+			};
+
+			request(options).then((docs) => {
+				res.render('centralrelatorios.ejs', { user: req.user, message: req.flash('appMessage'), leiloes: docs });
+			}).catch((err) => {
+				console.error(err);
+			});
+		}
+	});
+
 	admin(app, modules);
 	leilao(app, modules);
 
