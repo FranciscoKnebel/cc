@@ -95,7 +95,7 @@ function checkAuctions(auctions, listAll) {
 		const limitdate = new Date(auction.limitDate);
 
 		auction.timeLeft = dateDifference(new Date(), limitdate, { compact: true });
-		auction.limitDateString = limitdate.getHours() + ":" + limitdate.getMinutes() + ":" + limitdate.getSeconds() + " " + limitdate.getFullYear() + "-" + (limitdate.getMonth() + 1) + '-' + limitdate.getDate();
+		auction.limitDateString = `${limitdate.getHours()}:${limitdate.getMinutes()}:${limitdate.getSeconds()} ${limitdate.getFullYear()}-${limitdate.getMonth() + 1}-${limitdate.getDate()}`;
 		if (auction.state === oldState || listAll) {
 			response.push(auction);
 		}
@@ -173,11 +173,13 @@ module.exports = function leilao(app, modules) {
 				const promises = [
 					findAuctions(obj.Comprador.currentAuctions, modules, response, 'Comprador', 'currentAuctions'),
 					findAuctions(obj.Comprador.paymentPendingAuctions, modules, response, 'Comprador', 'paymentPendingAuctions'),
+					findAuctions(obj.Comprador.paymentDoneAuctions, modules, response, 'Comprador', 'paymentDoneAuctions'),
 					findAuctions(obj.Comprador.finalizedAuctions, modules, response, 'Comprador', 'finalizedAuctions'),
 
 					findAuctions(obj.Vendedor.currentAuctions, modules, response, 'Vendedor', 'currentAuctions'),
 					findAuctions(obj.Vendedor.finalizedAuctions, modules, response, 'Vendedor', 'finalizedAuctions'),
 					findAuctions(obj.Vendedor.paymentPendingAuctions, modules, response, 'Vendedor', 'paymentPendingAuctions'),
+					findAuctions(obj.Vendedor.paymentDoneAuctions, modules, response, 'Vendedor', 'paymentDoneAuctions'),
 					findAuctions(obj.Vendedor.validationPendingAuctions, modules, response, 'Vendedor', 'validationPendingAuctions'),
 					findAuctions(obj.Vendedor.cancelledAuctions, modules, response, 'Vendedor', 'cancelledAuctions'),
 				];

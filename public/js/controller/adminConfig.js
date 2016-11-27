@@ -22,4 +22,8 @@ ngapp.config(function appConfig($routeProvider, $locationProvider) {
 		controller: 'listarLeilaoController',
 		templateUrl: '/template/adminEditar.html',
 	});
+	$routeProvider.when('/admin/finalizar', {
+		controller: 'adminController',
+		templateUrl: '/template/adminFinalizar.html',
+	});
 });

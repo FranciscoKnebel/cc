@@ -8,28 +8,34 @@
 	<h2 class="">{{message}}</h2>
 	<h2 class="">{{error}}</h2>
 
-	<div class="ui big buttons" style="margin-top: 0.5em;">
-		<a href="/app" class="ui red button">Voltar</a>
-		<a ng-click="refresh('currentAuctions')" class="ui green button">Refresh</a>
-	</div>
-
-	<div class="ui right floated buttons">
-		<button class="ui primary button" ng-click="ordenar('limitDate')"><i class="clock icon"></i></button>
-		<button class="ui green button" ng-click="ordenar('currentPrice')"><i class="sort content ascending icon"></i></button>
-		<button class="ui secondary button" ng-click="ordenar('book.title')"><i class="sort alphabet ascending icon"></i></button>
-	</div>
-
-	<div class="ui labeled input">
-		<div class="ui label">
-			Título
+	<div class="ui stackable grid">
+		<div class="eight wide column">
+			<div class="ui big fluid buttons" style="margin-top: 0.5em;">
+				<a href="/app" class="ui red button">Voltar</a>
+				<a ng-click="refresh('currentAuctions')" class="ui green button">Refresh</a>
+			</div>
 		</div>
-		<input type="search" ng-model="search.book.title" placeholder="Filtrar por Título" aria-label="filtrar por título" />
-	</div>
-	<div class="ui labeled input">
-		<div class="ui label">
-			Edição
+		<div class="eight wide column" ng-if="leiloes.length >= 1">
+			<div class="ui big three buttons">
+				<button class="ui primary button" ng-click="ordenar('limitDate')"><i class="clock icon"></i></button>
+				<button class="ui green button" ng-click="ordenar('currentPrice')"><i class="sort content ascending icon"></i></button>
+				<button class="ui secondary button" ng-click="ordenar('book.title')"><i class="sort alphabet ascending icon"></i></button>
+			</div>
 		</div>
-		<input type="search" ng-model="search.book.edition" placeholder="Filtrar por Edição" aria-label="filtrar por edição" />
+		<div class="sixteen wide column" ng-if="leiloes.length >= 1">
+			<div class="ui labeled fluid input">
+				<div class="ui blue label">
+					Título
+				</div>
+				<input type="search" ng-model="search.book.title" placeholder="Filtrar por Título" aria-label="filtrar por título" />
+			</div>
+			<div class="ui labeled fluid input">
+				<div class="ui blue label">
+					Edição
+				</div>
+				<input type="search" ng-model="search.book.edition" placeholder="Filtrar por Edição" aria-label="filtrar por edição" />
+			</div>
+		</div>
 	</div>
 
 	<div ng-if="leiloes.length >= 1" class="ui relaxed divided items" id="stickyContext">

@@ -13,6 +13,7 @@ const auctionSchema = mongoose.Schema({
 	},
 	state: String,
 	description: String,
+	finishedDate: Date,
 	limitDate: Date,
 	maxDate: Date,
 	initialPrice: Number,

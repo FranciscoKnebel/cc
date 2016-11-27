@@ -52,6 +52,7 @@ const clienteSchema = AbstractUserSchema.extend({
 			ref: 'Leilao',
 		}],
 	},
+	cash: Number,
 });
 
 clienteSchema.methods.addAuction = function addAuction(auction, type, subtype) {

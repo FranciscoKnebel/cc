@@ -38,7 +38,7 @@ module.exports = function routes(app, modules) {
 
 	app.get('/leilao/usuario/pagamento/:id', (req, res) => {
 		const options = {
-			uri: process.env.ROOT_URL + '/api/leilao/buscar',
+			uri: `${process.env.ROOT_URL}/api/leilao/buscar`,
 			json: true,
 			qs: {
 				id: req.params.id,
@@ -58,6 +58,23 @@ module.exports = function routes(app, modules) {
 		});
 	});
 
+	app.get('/leilao/usuario/pagamento/simular/:id', (req, res) => {
+		const options = {
+			method: 'POST',
+			uri: `${process.env.ROOT_URL}/api/leilao/pagamento`,
+			json: true, // Automatically parses the JSON string in the response
+			qs: {
+				id: req.params.id,
+			},
+		};
+
+		request(options).then((doc) => {
+			res.render('simuladordepagamento');
+		}).catch((err) => {
+			res.json(err);
+		});
+	});
+
 	app.get('/leilao/usuario/:usertype/:type', (req, res) => {
 		if (req.user._type !== 'Cliente') {
 			res.redirect('back');
@@ -72,7 +89,7 @@ module.exports = function routes(app, modules) {
 
 		if (userTypeIsValid && auctionTypeIsValid) {
 			const options = {
-				uri: process.env.ROOT_URL + '/api/leilao/buscar',
+				uri: `${process.env.ROOT_URL}/api/leilao/buscar`,
 				json: true, // Automatically parses the JSON string in the response
 				body: {
 					auctions: req.user[userType][auctionType],

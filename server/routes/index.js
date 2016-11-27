@@ -35,7 +35,7 @@ module.exports = function routes(app, dirname, passport) {
 			};
 
 			const options = {
-				uri: process.env.ROOT_URL + '/api/leilao/buscar',
+				uri: `${process.env.ROOT_URL}/api/leilao/buscar`,
 				json: true, // Automatically parses the JSON string in the response
 				body: {
 					userAuctions: obj,

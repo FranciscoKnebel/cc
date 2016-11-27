@@ -1,0 +1,102 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,900italic,900,700italic,700,500italic,500,400italic,300italic,300,100italic,100);
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+h1, p, h2, h3, h4, ul, li, div {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-family: Roboto;
+}
+
+.loading-page {
+  background: #0d0d0d;
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.loading-page .counter {
+  text-align: center;
+}
+.loading-page .counter p {
+  font-size: 40px;
+  font-weight: 100;
+  color: #f60d54;
+}
+.loading-page .counter h1 {
+  color: white;
+  font-size: 80px;
+  margin-top: -10px;
+}
+.loading-page .counter hr {
+  background: #f60d54;
+  border: none;
+  height: 1px;
+}
+.loading-page .counter {
+  position: relative;
+  min-width: 300px;
+	max-width: 100%;
+}
+.loading-page .counter h1.abs {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.loading-page .counter .color {
+  width: 0px;
+  overflow: hidden;
+  color: #f60d54;
+}
+
+a.button {
+  display:inline-block;
+
+	font:normal normal 300 1.3em 'Roboto';
+	text-decoration:none;
+
+	color:rgba(246, 13, 84, 1);
+	brackground-color:transparent;
+	border:1px solid rgba(246, 13, 84, 1);
+	border-radius:100px;
+
+	padding: .3em 1.2em;
+	margin:5px;
+
+	background-size: 200% 100%;
+	background-image: linear-gradient(to right, transparent 50%, rgba(246, 13, 84, 1) 50%);
+	transition: background-position .6s cubic-bezier(0.19, 1, 0.22, 1) .1s, color .5s ease 0s, background-color .5s ease;
+}
+
+a.button:hover {
+	color:rgba(255, 255, 255, 1);
+	background-color:rgba(246, 13, 84, 1);
+	background-position: -100% 100%;
+}

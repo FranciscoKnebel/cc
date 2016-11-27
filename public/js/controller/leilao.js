@@ -57,10 +57,11 @@ ngapp.controller('leilaoController', function leilaoController($scope, $http, $r
 			$http(config).then(function successCallback(response) {
 				alert(`Lance de ${response.data.bidValue} efetuado com sucesso.`);
 				$scope.leilao.currentPrice = response.data.bidValue;
-				updateNextPrice();
 
 				$scope.leilao.bids = response.data.bids;
 				$scope.leilao.state = response.data.state;
+
+				updateNextPrice();
 
 				$scope.loading = false;
 				$scope.error = false;

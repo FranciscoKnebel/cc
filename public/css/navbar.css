@@ -6,6 +6,10 @@
 	display: none;
 }
 
+.ui.secondary.inverted.pointing.menu {
+	transition: 1s;
+}
+
 .ui.menu:not(.vertical) .item > .button {
 	margin-left: 0.5em;
 }
@@ -51,6 +55,7 @@
 
 .ui.fixed.menu {
 	background-color: #952108 !important;
+	transition: 1s;
 }
 
 .ui.fixed.menu .item {

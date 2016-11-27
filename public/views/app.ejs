@@ -46,6 +46,8 @@
 									Olá, <%= user.name %>. Bem-vindo à Cooper Comics!
 								</h1>
 
+								<h2>Saldo em conta: <i>R$ <%= user.cash %>.00</i></h2>
+
 								<h2>
 									Leilões como Comprador:
 								</h2>
@@ -143,12 +145,16 @@
 					</div>
 					<div class="mobile only row">
 						<div class="ui attached segment">
-							<a class="ui primary button" href="/leilao/criar">Criar Leilão</a>
-							<a class="ui green button" href="/leilao/buscar">Buscar Leilão</a>
-							<a class="ui secondary button" href="/leilao/listar">Listar Leilões</a>
+							<a class="ui small compact primary button" href="/leilao/criar">Criar Leilão</a>
+							<a class="ui small compact green button" href="/leilao/buscar">Buscar Leilão</a>
+							<a class="ui small compact secondary button" href="/leilao/listar">Listar Leilões</a>
 							<h1>
-								Olá, <%= user.name %>. Bem-vindo à Cooper Comics!
+								Olá, <%= user.name %>.
+								<br>
+								Bem-vindo à Cooper Comics!
 							</h1>
+
+							<h2>Saldo em conta: <i>R$ <%= user.cash %>.00</i></h2>
 
 							<h2>
 								Leilões como Comprador:

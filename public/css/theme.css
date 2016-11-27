@@ -84,3 +84,18 @@ footer {
 .ui.button:hover {
 	transition: 0.5s;
 }
+
+.ui.segment {
+	transition: 1s;
+}
+
+.ui.labeled.input:not([class*="corner labeled"]) .label:first-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+	width: 70px;
+}
+
+.ui.blue.label {
+		border-color: rgba(34, 36, 38, 0.15) !important;
+		border-width: thin;
+}

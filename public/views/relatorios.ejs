@@ -33,14 +33,29 @@
 
     	<div class="ui container" style="margin-top: 1em;">
         <div class="ui very padded segment">
-					<h2 class="ui header">
-					  <i class="archive icon"></i>
-					  <div class="content">
-							<%= auctionType %>
-					    <div class="sub header"><%= userType %></div>
-					  </div>
-						<a href="/app" class="ui big inline red button" style="margin-top: 0.5em;">Voltar</a>
-					</h2>
+					<div class="ui grid">
+						<div class="tablet only computer only row">
+							<h2 class="ui header">
+								<i class="archive icon"></i>
+								<div class="content">
+									<%= auctionType %>
+									<div class="sub header"><%= userType %></div>
+								</div>
+								<a href="/app" class="ui big inline red button" style="margin-top: 0.5em;">Voltar</a>
+							</h2>
+						</div>
+						<div class="mobile only row">
+							<h3 class="ui header">
+								<i class="archive icon"></i>
+								<div class="content">
+									<%= auctionType %>
+									<div class="sub header"><%= userType %></div>
+								</div>
+								<a href="/app" class="ui big inline red button" style="margin-top: 0.5em;">Voltar</a>
+							</h3>
+						</div>
+					</div>
+
 
         	<div class="ui relaxed divided items">
             <% if(leiloes.length > 0) { %>
