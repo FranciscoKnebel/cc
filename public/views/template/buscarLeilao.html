@@ -48,7 +48,7 @@
 			    <a ng-if="leilao.bids.length < 1">Não há ofertas para esse leilão.</a>
 			    <a ng-if="leilao.bids.length >= 1">Preço atual: {{leilao.currentPrice}}</a><br>
 			    <a ng-if="leilao.bids.length >= 1">Lances: {{leilao.bids.length}}</a><br>
-			    <a>Final de leilão: {{ leilao.limitDate | date:'yyyy-MM-dd HH:mm:ss'}}</a>
+			    <a>Final de leilão: {{ leilao.limitDate | date:'HH:mm:ss yyyy-MM-dd'}}</a>
 			  </div>
 			  <div class="description">
 			    <p>{{leilao.description}}</p>

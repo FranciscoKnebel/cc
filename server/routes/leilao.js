@@ -36,6 +36,28 @@ module.exports = function routes(app, modules) {
 		});
 	});
 
+	app.get('/leilao/usuario/pagamento/:id', (req, res) => {
+		const options = {
+			uri: process.env.ROOT_URL + '/api/leilao/buscar',
+			json: true,
+			qs: {
+				id: req.params.id,
+			},
+		};
+
+		request(options).then((leilao) => {
+			const requestFromWinner = leilao.bids[leilao.winningBid].bidder === req.user.id;
+			const onPendingPaymentState = leilao.state === 'paymentPendingAuctions';
+			if (onPendingPaymentState && requestFromWinner) {
+				res.render('pagamento', { user: req.user, message: '', leilao });
+			} else {
+				res.redirect('/404');
+			}
+		}).catch((err) => {
+			res.render('pagamento', { user: req.user, message: err.response.body, leilao: false });
+		});
+	});
+
 	app.get('/leilao/usuario/:usertype/:type', (req, res) => {
 		if (req.user._type !== 'Cliente') {
 			res.redirect('back');

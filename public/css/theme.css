@@ -76,3 +76,11 @@ th.selectable:hover {
 footer {
 	background-color: #952108 !important;
 }
+
+.ui.button {
+	transition: 0.5s;
+}
+
+.ui.button:hover {
+	transition: 0.5s;
+}

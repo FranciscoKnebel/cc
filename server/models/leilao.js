@@ -31,6 +31,9 @@ const auctionSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Livro',
 	},
+
+	timeLeft: String,
+	limitDateString: String,
 }, {
 	collection: 'leiloes',
 	timestamps: {

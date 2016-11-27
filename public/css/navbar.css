@@ -44,3 +44,27 @@
 .ui.vertical.inverted.sidebar.menu {
 	background-color: #952108 !important;
 }
+
+.ui.menu .item>img:not(.ui) {
+  width: 3.5em;
+}
+
+.ui.fixed.menu {
+	background-color: #952108 !important;
+}
+
+.ui.fixed.menu .item {
+	color: white;
+}
+
+.ui.menu .active.item {
+	transition: 0.5s;
+  background: rgba(0,0,0,.2);
+  font-weight: 900;
+}
+
+.ui.menu .active.item:hover {
+	transition: 0.5s;
+	background: rgba(0,0,0,.5);
+	color: white;
+}

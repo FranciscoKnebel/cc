@@ -33,7 +33,6 @@
 
     	<div class="ui container" style="margin-top: 1em;">
         <div class="ui very padded segment">
-
 					<h2 class="ui header">
 					  <i class="archive icon"></i>
 					  <div class="content">
@@ -58,10 +57,9 @@
                     <div class="meta">
                       <a>Edição: <%= leilao.book.edition %></a><br>
                       <a>Preço inicial: <%= leilao.initialPrice %></a><br>
-                      <a ng-if="leilao.bids.length < 1">Não há ofertas para esse leilão.</a>
-                      <a ng-if="leilao.bids.length >= 1">Preço atual: <%= leilao.currentPrice %></a><br>
-                      <a ng-if="leilao.bids.length >= 1">Lances: <%= leilao.bids.length %></a><br>
-                      <a>Final de leilão: <%= leilao.limitDate %></a>
+                      <a>Preço atual: <%= leilao.currentPrice %></a><br>
+                      <a>Lances: <%= leilao.bids.length %></a><br>
+                      <a>Final de leilão: <%= leilao.limitDateString %></a>
                     </div>
                     <div class="description">
                       <p><%= leilao.description %></p>

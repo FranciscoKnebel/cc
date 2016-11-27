@@ -68,6 +68,14 @@
 									  </a>
 									</div>
 									<div class="ui statistic">
+									  <a class="value" href="/leilao/usuario/Comprador/paymentDoneAuctions">
+									    <%= leiloes.Comprador.paymentDoneAuctions.length %>
+									  </a>
+									  <a class="label" href="/leilao/usuario/Comprador/paymentDoneAuctions">
+									    Pagamento Efetuado
+									  </a>
+									</div>
+									<div class="ui statistic">
 									  <a class="value" href="/leilao/usuario/Comprador/finalizedAuctions">
 									    <%= leiloes.Comprador.finalizedAuctions.length %>
 									  </a>
@@ -96,6 +104,14 @@
 									  <a class="label" href="/leilao/usuario/Vendedor/paymentPendingAuctions">
 									    Pagamento Pendente
 									  </a>
+									</div>
+									<div class="ui statistic">
+										<a class="value" href="/leilao/usuario/Vendedor/paymentDoneAuctions">
+											<%= leiloes.Vendedor.paymentDoneAuctions.length %>
+										</a>
+										<a class="label" href="/leilao/usuario/Vendedor/paymentDoneAuctions">
+											Pagamento Efetuado
+										</a>
 									</div>
 									<div class="ui statistic">
 									  <a class="value" href="/leilao/usuario/Vendedor/finalizedAuctions">
@@ -160,6 +176,17 @@
 										</div>
 									</div>
 								</a>
+								<a class="item" href="/leilao/usuario/Comprador/paymentDoneAuctions">
+									<i class="right triangle icon"></i>
+									<div class="content">
+										<div class="header">
+											Pagamento Efetuado
+										</div>
+										<div class="description">
+											<%= leiloes.Comprador.paymentDoneAuctions.length %>
+										</div>
+									</div>
+								</a>
 								<a class="item" href="/leilao/usuario/Comprador/finalizedAuctions">
 									<i class="right triangle icon"></i>
 									<div class="content">
@@ -196,6 +223,17 @@
 										</div>
 										<div class="description">
 											<%= leiloes.Vendedor.paymentPendingAuctions.length %>
+										</div>
+									</div>
+								</a>
+								<a class="item" href="/leilao/usuario/Vendedor/paymentDoneAuctions">
+									<i class="right triangle icon"></i>
+									<div class="content">
+										<div class="header">
+											Pagamento Efetuado
+										</div>
+										<div class="description">
+											<%= leiloes.Comprador.paymentDoneAuctions.length %>
 										</div>
 									</div>
 								</a>

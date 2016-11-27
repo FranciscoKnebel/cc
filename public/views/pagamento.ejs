@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cooper Comics</title>
+
+		<% include ../snippets/head %>
+		<% include ../snippets/analytics %>
+		<% include ../snippets/css %>
+	</head>
+	<body>
+		<% include ../snippets/navbar/navbar %>
+
+		<div class="pusher">
+			<div class="ui inverted vertical masthead center aligned segment">
+				<% include ../snippets/navbar/navbar-fixed %>
+
+				<div class="ui text container">
+					<h1 class="ui inverted header" style="margin-top: 0.5em;">
+						Cooper Comics
+					</h1>
+				</div>
+			</div>
+			<div class="ui container" style="margin-top: 2em;">
+				<% if (message.length > 0) { %>
+					<div style="text-align: center;">
+						<div class="ui floating big success message">
+						  <i class="close icon"></i>
+						  <div class="header">
+						    Successo!
+						  </div>
+						  <p><%= message %></p>
+						</div>
+					</div>
+				<% } %>
+
+				<div class="ui segment">
+					<% if(leilao) { %>
+						<div class="ui relaxed divided items">
+							<div class="item">
+								<a class="ui center aligned medium image" href="/leilao/<%= leilao._id %>" target="_self">
+								  <img src="<%= leilao.book.images[0] %>">
+								</a>
+								<div class="content">
+								  <a class="header" href="/leilao/<%= leilao._id %>" target="_self"><h1><%= leilao.book.title %></h1></a>
+								  <div class="description">
+								    <h2><%= leilao.book.author %></h2>
+								  </div>
+								  <div class="meta">
+								    <a>Edição: <%= leilao.book.edition %></a><br>
+								    <a ng-if="leilao.bids.length >= 1">Preço final: <%= leilao.currentPrice %></a><br>
+								    <a>Lances: <%= leilao.bids.length %></a><br>
+								    <a>Tempo para efetuar o pagamento: <%= leilao.timeLeft %></a>
+								  </div>
+								  <div class="description">
+								    <p><%= leilao.description %></p>
+								  </div>
+								  <div class="">
+										<a href="/leilao/<%= leilao._id %>" class="ui huge  right floated green button"  target="_self">
+											<div class="ui small statistic">
+												<div class="value">
+													R$ <%= leilao.currentPrice %>.00
+												</div>
+												<div class="label">
+													Preço à pagar
+												</div>
+											</div>
+											<br>
+											<i class="visa icon"></i>
+											<i class="mastercard icon"></i>
+											<i class="american express icon"></i>
+											<i class="paypal icon"></i>
+											<br>
+											Pagamento online
+										</a>
+								  </div>
+								</div>
+							</div>
+						</div>
+					<% } %>
+
+
+				</div>
+			</div>
+			<% include ../snippets/footer %>
+		</div>
+
+		<% include ../snippets/js %>
+		<script type="text/javascript">
+			$('.message .close').on('click', function() {
+				$(this).closest('.message').transition('fade');
+			});
+		</script>
+	</body>
+</html>

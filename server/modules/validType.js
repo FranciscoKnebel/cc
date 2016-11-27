@@ -16,6 +16,7 @@ module.exports = function validType(type, subtype) {
 	case 'currentAuctions':
 	case 'finalizedAuctions':
 	case 'paymentPendingAuctions':
+	case 'paymentDoneAuctions':
 	case 'validationPendingAuctions':
 	case 'cancelledAuctions':
 	case 'undef':

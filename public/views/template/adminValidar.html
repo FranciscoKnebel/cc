@@ -45,8 +45,8 @@
 				<a>Vendedor: {{leilao.seller.name}} <{{leilao.seller.email}}></a>
 				<div class="meta">
 					<a>Preço inicial: {{leilao.initialPrice}}</a><br>
-					<a>Leilão criado em: {{ leilao.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</a><br>
-					<a>Final de leilão: {{ leilao.limitDate | date:'yyyy-MM-dd HH:mm:ss'}}</a>
+					<a>Leilão criado em: {{ leilao.createdAt | date:'HH:mm:ss yyyy-MM-dd'}}</a><br>
+					<a>Final de leilão: {{ leilao.limitDate | date:'HH:mm:ss yyyy-MM-dd'}}</a>
 				</div>
 				<div class="description">
 					<p>{{leilao.description}}</p>

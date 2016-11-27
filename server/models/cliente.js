@@ -21,6 +21,10 @@ const clienteSchema = AbstractUserSchema.extend({
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Leilao',
 		}],
+		paymentDoneAuctions: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Leilao',
+		}],
 	},
 	Vendedor: {
 		currentAuctions: [{
@@ -32,6 +36,10 @@ const clienteSchema = AbstractUserSchema.extend({
 			ref: 'Leilao',
 		}],
 		paymentPendingAuctions: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Leilao',
+		}],
+		paymentDoneAuctions: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Leilao',
 		}],

@@ -3,6 +3,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const dateDifference = require('date-difference');
 const q = require('q');
 const Cliente = require('../../../models/cliente');
 
@@ -91,6 +92,10 @@ function checkAuctions(auctions, listAll) {
 		const oldState = elem.state;
 
 		const auction = hasReachedLimitDate(elem, currentDate);
+		const limitdate = new Date(auction.limitDate);
+
+		auction.timeLeft = dateDifference(new Date(), limitdate, { compact: true });
+		auction.limitDateString = limitdate.getHours() + ":" + limitdate.getMinutes() + ":" + limitdate.getSeconds() + " " + limitdate.getFullYear() + "-" + (limitdate.getMonth() + 1) + '-' + limitdate.getDate();
 		if (auction.state === oldState || listAll) {
 			response.push(auction);
 		}
@@ -153,10 +158,12 @@ module.exports = function leilao(app, modules) {
 						currentAuctions: [],
 						finalizedAuctions: [],
 						paymentPendingAuctions: [],
+						paymentDoneAuctions: [],
 					},
 					Vendedor: {
 						currentAuctions: [],
 						finalizedAuctions: [],
+						paymentDoneAuctions: [],
 						paymentPendingAuctions: [],
 						validationPendingAuctions: [],
 						cancelledAuctions: [],
@@ -205,7 +212,7 @@ module.exports = function leilao(app, modules) {
 						docs.push(doc);
 
 						const auctions = checkAuctions(docs, false);
-						res.send(auctions[0]);
+						res.json(auctions[0]);
 					}
 				});
 			} else {
