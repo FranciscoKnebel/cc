@@ -1,5 +1,5 @@
 <div class="ui very padded segment">
-	<h1 class="ui header">Validar leilões</h1>
+	<h1 class="ui header">Relatórios</h1>
 	<div class="">
 	  <div class="ui dimmer" ng-class="{active: loading.state}">
 		  <div class="ui text loader">{{loading.message}}</div>
@@ -9,10 +9,18 @@
 	<h2 class="">{{error}}</h2>
 
 	<div class="ui stackable grid">
+		<div class="sixteen wide column">
+			<a ng-click="relatorios('currentAuctions')" class="ui primary compact relatorio button">Em aberto</a>
+			<a ng-click="relatorios('paymentPendingAuctions')" class="ui green compact relatorio button">Pagamento Pendente</a>
+			<a ng-click="relatorios('paymentDoneAuctions')" class="ui yellow compact relatorio button">Pagamento Confirmado</a>
+			<a ng-click="relatorios('finishedAuctions')" class="ui primary compact relatorio button">Finalizados</a>
+			<a ng-click="relatorios('validationPendingAuctions')" class="ui green compact relatorio button">Validação Pendente</a>
+			<a ng-click="relatorios('cancelledAuctions')" class="ui yellow compact relatorio button">Cancelados</a>
+		</div>
 		<div class="eight wide column">
-			<div class="ui big fluid buttons" style="margin-top: 0.5em;">
+			<div class="ui big fluid buttons">
 				<a href="/admin" class="ui red button">Voltar</a>
-				<a ng-click="refresh('validationPendingAuctions')" class="ui green button">Refresh</a>
+				<a ng-click="refresh(auctionType)" class="ui green button">Refresh</a>
 			</div>
 		</div>
 		<div class="eight wide column" ng-show="leiloes.length >= 1">
@@ -58,7 +66,11 @@
 					<p>{{leilao.description}}</p>
 				</div>
 				<div class="extra">
-					<button type="button" name="validar" class="ui green button" ng-click="validarLeilao(leilao._id)">Validar Leilão</button>
+			    <a href="/leilao/{{leilao._id}}" class="ui right floated primary button"  target="_self">
+			      Acessar Leilão
+			      <i class="right chevron icon"></i>
+			    </a>
+					<button type="button" name="validar" class="ui green button" ng-click="validarLeilao(leilao._id)" ng-show="leilao.state === 'validationPendingAuctions'">Validar Leilão</button>
 					<a type="button" class="ui blue button" href="/leilao/editar/{{leilao._id}}" target="_self">Editar Leilao</a>
 				</div>
 			</div>

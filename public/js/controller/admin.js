@@ -84,7 +84,6 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 		switch (path) {
 		case '/admin/validar':
 			carregarLeiloesPendentes();
-
 			break;
 		default:
 			break;
@@ -94,7 +93,7 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 	$scope.propertyName = 'limitDate';
 	$scope.reverse = false;
 
-	function buscarTodosLeiloes() {
+	function carregarLeiloesEmAndamento() {
 		const config = {
 			method: 'GET',
 			url: '/api/leilao/buscar',
@@ -129,22 +128,77 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 		});
 	}
 
+	function carregarTodosLeiloes(type, callbackSuccess, callbackError) {
+		const config = {
+			method: 'GET',
+			url: '/api/leilao/buscar',
+			params: {
+				listAll: true,
+				state: type,
+			},
+		};
+
+		$scope.leiloes = [];
+		$http(config).then(function successCallback(response) {
+			callbackSuccess(response);
+		}, function errorCallback(response) {
+			callbackError(response);
+		});
+	}
+
+	function carregarLeiloes(type) {
+		$scope.leiloes = [];
+		$scope.message = '';
+		$scope.loading = {
+			message: 'Carregando leilões...',
+			state: true,
+		};
+
+		carregarTodosLeiloes(type, (response) => {
+			if (response.data.length > 0) {
+				$scope.leiloes = response.data;
+				$scope.message = type;
+			} else {
+				$scope.leiloes = [];
+				$scope.message = `Não há leilões desse tipo ("${type}") no sistema.`;
+			}
+
+			$scope.loading = {
+				state: false,
+			};
+		}, (response) => {
+			$scope.error = response.statusText;
+			$scope.loading = {
+				state: false,
+			};
+		});
+	}
+
 	$scope.refresh = function refresh(type) {
+		console.log(type);
 		switch (type) {
 		case 'validationPendingAuctions':
 			carregarLeiloesPendentes();
 			break;
 		case 'currentAuctions':
-			buscarTodosLeiloes();
+			carregarLeiloesEmAndamento();
+			break;
+		case undefined:
 			break;
 		default:
-			buscarTodosLeiloes();
+			carregarLeiloes(type);
 		}
 	};
 
 	$scope.ordenar = function ordenar(propertyName) {
 		$scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
 		$scope.propertyName = propertyName;
+	};
+
+	$scope.relatorios = function relatorios(type) {
+		$scope.auctionType = type;
+
+		carregarLeiloes(type);
 	};
 
 	pageRouter($location.path());

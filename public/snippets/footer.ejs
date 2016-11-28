@@ -13,7 +13,9 @@
 				<% if(typeof user !== "undefined") { %>
 					<h4 class="ui inverted header">Leilão</h4>
 	        <div class="ui inverted link list">
-	          <a href="/leilao/criar" class="item" target="_self">Criar</a>
+						<% if(user._type !== 'Administrador') { %>
+	          	<a href="/leilao/criar" class="item" target="_self">Criar</a>
+						<% } %>
 	          <a href="/leilao/buscar" class="item" target="_self">Buscar</a>
 	          <a href="/leilao/listar" class="item" target="_self">Listar</a>
 	          <a href="/relatorios" class="item" target="_self">Relatórios</a>

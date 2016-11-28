@@ -7,7 +7,7 @@ module.exports = function routes(app, modules) {
 		res.render('admin', { user: req.user, message: req.flash('appMessage') });
 	});
 
-	app.post('/signup/admin', modules.isAdmin, (req, res) => {
+	app.post('/admin/signup', modules.isAdmin, (req, res) => {
 		modules.Usuario.findOne({ email: req.body.email }, (err, doc) => {
 			if (err) {
 				throw err;

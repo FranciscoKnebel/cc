@@ -15,14 +15,14 @@
 				<a ng-click="refresh('currentAuctions')" class="ui green button">Refresh</a>
 			</div>
 		</div>
-		<div class="eight wide column" ng-if="leiloes.length >= 1">
+		<div class="eight wide column" ng-show="leiloes.length >= 1">
 			<div class="ui big three buttons">
 				<button class="ui primary button" ng-click="ordenar('limitDate')"><i class="clock icon"></i></button>
 				<button class="ui green button" ng-click="ordenar('currentPrice')"><i class="sort content ascending icon"></i></button>
 				<button class="ui secondary button" ng-click="ordenar('book.title')"><i class="sort alphabet ascending icon"></i></button>
 			</div>
 		</div>
-		<div class="sixteen wide column" ng-if="leiloes.length >= 1">
+		<div class="sixteen wide column" ng-show="leiloes.length >= 1">
 			<div class="ui labeled fluid input">
 				<div class="ui blue label">
 					Título

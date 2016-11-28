@@ -26,4 +26,12 @@ ngapp.config(function appConfig($routeProvider, $locationProvider) {
 		controller: 'adminController',
 		templateUrl: '/template/adminFinalizar.html',
 	});
+	$routeProvider.when('/admin/relatorios', {
+		controller: 'adminController',
+		templateUrl: '/template/adminRelatorios.html',
+	});
+	$routeProvider.when('/admin/relatorios/:state', {
+		controller: 'adminController',
+		templateUrl: '/template/adminRelatorios.html',
+	});
 });

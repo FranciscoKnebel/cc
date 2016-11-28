@@ -113,3 +113,7 @@ footer.ui.inverted.segment {
 	border-color: rgba(34, 36, 38, 0.15) !important;
 	border-width: thin;
 }
+
+.relatorio.button {
+	margin-top: 7px;
+}

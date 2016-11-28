@@ -95,7 +95,12 @@ function checkAuctions(auctions, listAll) {
 		const limitdate = new Date(auction.limitDate);
 
 		auction.timeLeft = dateDifference(new Date(), limitdate, { compact: true });
-		auction.limitDateString = `${limitdate.getHours()}:${limitdate.getMinutes()}:${limitdate.getSeconds()} ${limitdate.getFullYear()}-${limitdate.getMonth() + 1}-${limitdate.getDate()}`;
+
+		const hours = (`0${limitdate.getHours()}`).slice(-2);
+		const mins = (`0${limitdate.getMinutes()}`).slice(-2);
+		const seconds = (`0${limitdate.getSeconds()}`).slice(-2);
+
+		auction.limitDateString = `${hours}:${mins}:${seconds} ${limitdate.getFullYear()}-${(`0${limitdate.getMonth() + 1}`).slice(-2)}-${(`0${limitdate.getDate()}`).slice(-2)}`;
 		if (auction.state === oldState || listAll) {
 			response.push(auction);
 		}

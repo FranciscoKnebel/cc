@@ -2,7 +2,11 @@ const request = require('request-promise');
 
 module.exports = function routes(app, modules) {
 	app.get('/leilao/criar', (req, res) => {
-		res.render('criarLeilao.ejs', { user: req.user });
+		if (req.user._type === 'Administrador') {
+			res.redirect('back');
+		} else {
+			res.render('criarLeilao.ejs', { user: req.user });
+		}
 	});
 
 	app.post('/leilao/criar', (req, res) => {
