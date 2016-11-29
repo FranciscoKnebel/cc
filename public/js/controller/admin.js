@@ -175,7 +175,6 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 	}
 
 	$scope.refresh = function refresh(type) {
-		console.log(type);
 		switch (type) {
 		case 'validationPendingAuctions':
 			carregarLeiloesPendentes();
