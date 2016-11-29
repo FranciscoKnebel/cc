@@ -1,3 +1,76 @@
-<div class="ui segment">
-	Opa lele
+<div class="ui very padded segment">
+	<h1>Finalizar Leilões</h1>
+	<div class="">
+		<div class="ui dimmer" ng-class="{active: loading.state}">
+			<div class="ui text loader">{{loading.message}}</div>
+		</div>
+	</div>
+	<h2 class="">{{message}}</h2>
+	<h2 class="">{{error}}</h2>
+
+	<div class="ui stackable grid">
+		<div class="eight wide column">
+			<div class="ui big fluid buttons" style="margin-top: 0.5em;">
+				<a href="/app" class="ui red button">Voltar</a>
+				<a ng-click="refresh('currentAuctions')" class="ui green button">Refresh</a>
+			</div>
+		</div>
+		<div class="sixteen wide column">
+			<div class="ui big fluid buttons">
+				<button type="button" class="ui teal button" ng-click="carregarTodosLeiloes('paymentPendingAuctions')">Efetuar Pagamento</button>
+				<button type="button" class="ui orange button" ng-click="carregarTodosLeiloes('paymentDoneAuctions')">Pagamento Efetuado</button>
+			</div>
+		</div>
+		<div class="eight wide column" ng-show="leiloes.length >= 1">
+			<div class="ui big three buttons">
+				<button class="ui primary button" ng-click="ordenar('limitDate')"><i class="clock icon"></i></button>
+				<button class="ui green button" ng-click="ordenar('currentPrice')"><i class="sort content ascending icon"></i></button>
+				<button class="ui secondary button" ng-click="ordenar('book.title')"><i class="sort alphabet ascending icon"></i></button>
+			</div>
+		</div>
+		<div class="eight wide column" ng-show="leiloes.length >= 1">
+			<div class="ui labeled fluid input">
+				<div class="ui blue label">
+					Título
+				</div>
+				<input type="search" ng-model="search.book.title" placeholder="Filtrar por Título" aria-label="filtrar por título" />
+			</div>
+			<div class="ui labeled fluid input">
+				<div class="ui blue label">
+					Edição
+				</div>
+				<input type="search" ng-model="search.book.edition" placeholder="Filtrar por Edição" aria-label="filtrar por edição" />
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="leiloes.length >= 1" class="ui relaxed divided items" id="stickyContext">
+		<table class="ui inverted celled table">
+			<thead>
+				<tr>
+					<th></th>
+					<th ng-click="ordenar('book.title')" class="selectable">Título</th>
+					<th>Autor</th>
+					<th ng-click="ordenar('currentPrice')" class="selectable">Preço</th>
+					<th ng-click="ordenar('limitDate')" class="selectable">Final de Leilão</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="animate-repeat" ng-repeat="leilao in leiloes | orderBy:propertyName:reverse | filter: search:strict" ng-init="$last && fireEvent()">
+					<td class="selectable">
+						<a href="/leilao/{{leilao._id}}" target="_self"><img class="ui mini image" ng-src="{{leilao.book.images[0]}}"></a>
+					</td>
+					<td class="selectable">
+						<a href="/leilao/{{leilao._id}}" target="_self">{{leilao.book.title}}</a>
+					</td>
+					<td>{{leilao.book.author}}</td>
+					<td>{{leilao.currentPrice}}</td>
+					<td>{{ leilao.limitDate | date:'HH:mm:ss yyyy-MM-dd'}}</td>
+					<td ng-if="leilao.state === 'paymentPendingAuctions'" class="selectable" ng-click="">Pagar leilão</td>
+					<td ng-if="leilao.state === 'paymentDoneAuctions'" class="selectable" ng-click="">Retirar livro</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>

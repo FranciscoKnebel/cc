@@ -157,7 +157,8 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 		carregarTodosLeiloes(type, (response) => {
 			if (response.data.length > 0) {
 				$scope.leiloes = response.data;
-				$scope.message = type;
+				$scope.message = type;		console.log($scope.leiloes[0]);
+
 			} else {
 				$scope.leiloes = [];
 				$scope.message = `Não há leilões desse tipo ("${type}") no sistema.`;
@@ -194,11 +195,11 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 		$scope.propertyName = propertyName;
 	};
 
-	$scope.relatorios = function relatorios(type) {
+	$scope.carregarTodosLeiloes = function loadAll (type) {
 		$scope.auctionType = type;
 
 		carregarLeiloes(type);
-	};
+	}
 
 	pageRouter($location.path());
 });
