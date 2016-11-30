@@ -21,6 +21,8 @@ module.exports = function alteracao(app, modules) {
 						cliente.save();
 					});
 
+					//need to updateState on Comprador bids
+
 					leilao.state = req.body.state;
 					leilao.save(function (err2) {
 						if (err2) {
@@ -87,7 +89,7 @@ module.exports = function alteracao(app, modules) {
 
 				modules.Cliente.findById(auction.seller, (err, vendedor) => {
 					vendedor.updateState(auction._id, 'Vendedor', 'paymentPendingAuctions', 'paymentDoneAuctions');
-					vendedor.cash += auction.currentPrice;
+					vendedor.cash += auction.currentPrice; // 10% fica com a Cooper Comics na retirada
 					// enviar e-mail para o vencedor avisando que o pagamento foi confirmado
 
 					vendedor.save(() => {
@@ -120,6 +122,42 @@ module.exports = function alteracao(app, modules) {
 		}).catch((err) => {
 			console.error(err);
 			res.render('pagamento', { user: req.user, message: err.response.body, leilao: false });
+		});
+	});
+
+	app.post('/api/leilao/retirada', (req, res) => {
+		const options = {
+			uri: `${process.env.ROOT_URL}/api/leilao/buscar`,
+			json: true,
+			qs: {
+				id: req.query.id || req.body.id,
+			},
+		};
+
+		request(options).then((auction) => {
+			const onPaymentDoneState = auction.state === 'paymentDoneAuctions';
+			const newState = 'finalizedAuctions';
+
+			if (onPaymentDoneState) {
+				modules.Cliente.findById(auction.seller, (err, cliente) => {
+					cliente.updateState(auction._id, 'Vendedor', 'paymentDoneAuctions', newState);
+					cliente.save();
+				});
+
+				modules.Cliente.findById(auction.bids[auction.winningBid].bidder, (err, cliente) => {
+					cliente.updateState(auction._id, 'Comprador', 'paymentDoneAuctions', newState);
+					cliente.save();
+				});
+
+				modules.Leilao.findById(auction._id, (err, leilao) => {
+					leilao.state = newState;
+					leilao.save();
+					res.send(leilao);
+				});
+			}
+		}).catch((err) => {
+			console.error(err);
+			res.redirect('back');
 		});
 	});
 };

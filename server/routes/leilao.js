@@ -50,7 +50,7 @@ module.exports = function routes(app, modules) {
 		};
 
 		request(options).then((leilao) => {
-			const requestFromWinner = leilao.bids[leilao.winningBid].bidder === req.user.id;
+			const requestFromWinner = leilao.bids[leilao.winningBid].bidder === req.user.id || req.user._type === 'Administrador';
 			const onPendingPaymentState = leilao.state === 'paymentPendingAuctions';
 			if (onPendingPaymentState && requestFromWinner) {
 				res.render('pagamento', { user: req.user, message: '', leilao });

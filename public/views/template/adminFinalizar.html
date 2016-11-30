@@ -67,8 +67,8 @@
 					<td>{{leilao.book.author}}</td>
 					<td>{{leilao.currentPrice}}</td>
 					<td>{{ leilao.limitDate | date:'HH:mm:ss yyyy-MM-dd'}}</td>
-					<td ng-if="leilao.state === 'paymentPendingAuctions'" class="selectable" ng-click="">Pagar leilão</td>
-					<td ng-if="leilao.state === 'paymentDoneAuctions'" class="selectable" ng-click="">Retirar livro</td>
+					<td ng-if="leilao.state === 'paymentPendingAuctions'" class="selectable button"><a ng-href="/leilao/usuario/pagamento/{{leilao._id}}" target="_self"><div style="height: 100%; width: 100%;">Pagar leilão</div></a></td>
+					<td ng-if="leilao.state === 'paymentDoneAuctions'" class="selectable button" ng-click="retirada(leilao._id)">Retirar livro</td>
 				</tr>
 			</tbody>
 		</table>

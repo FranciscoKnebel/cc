@@ -38,7 +38,6 @@ ngapp.controller('listarLeilaoController', function listarLeilaoController($scop
 				state: false,
 			};
 		}, function errorCallback(response) {
-			console.log('failure', response);
 			$scope.error = response.statusText;
 			$scope.loading = {
 				state: false,

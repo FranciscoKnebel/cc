@@ -6,6 +6,5 @@ module.exports = function leilao(app, modules) {
 	busca(app, modules);
 
 	alteracao(app, modules);
-	app.all('*', modules.isLoggedIn);
 	lance(app, modules);
 };

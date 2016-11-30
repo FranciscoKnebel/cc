@@ -44,90 +44,6 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 		});
 	};
 
-	function carregarLeiloesPendentes() {
-		const config = {
-			method: 'GET',
-			url: '/api/leilao/buscar',
-			params: {
-				listAll: 'true',
-				state: 'validationPendingAuctions',
-			},
-		};
-
-		$scope.loading = {
-			message: 'Carregando leilões...',
-			state: true,
-		};
-		$http(config).then(function successCallback(response) {
-			const leiloes = response.data;
-
-			if (leiloes.length > 0) {
-				$scope.leiloes = leiloes;
-			} else {
-				$scope.leiloes = [];
-				$scope.message = 'Não há leilões pendentes no sistema.';
-			}
-
-			$scope.loading = {
-				state: false,
-			};
-		}, function failureCallback(response) {
-			console.log('failure', response);
-			$scope.error = response.statusText;
-			$scope.loading = {
-				state: false,
-			};
-		});
-	}
-
-	function pageRouter(path) {
-		switch (path) {
-		case '/admin/validar':
-			carregarLeiloesPendentes();
-			break;
-		default:
-			break;
-		}
-	}
-
-	$scope.propertyName = 'limitDate';
-	$scope.reverse = false;
-
-	function carregarLeiloesEmAndamento() {
-		const config = {
-			method: 'GET',
-			url: '/api/leilao/buscar',
-			params: {
-				listAll: true,
-				state: 'currentAuctions',
-			},
-		};
-
-		$scope.leiloes = [];
-		$scope.loading = {
-			message: 'Carregando leilões...',
-			state: true,
-		};
-		$http(config).then(function successCallback(response) {
-			if (response.data.length > 0) {
-				$scope.leiloes = response.data;
-			} else {
-				$scope.leiloes = [];
-				$scope.message = 'Não há leilões em andamento no sistema.';
-			}
-
-			$scope.loading = {
-				state: false,
-			};
-		}, function errorCallback(response) {
-			console.log('failure', response);
-			$scope.error = response.statusText;
-			$scope.loading = {
-				state: false,
-			};
-		});
-	}
-
 	function carregarTodosLeiloes(type, callbackSuccess, callbackError) {
 		const config = {
 			method: 'GET',
@@ -157,8 +73,7 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 		carregarTodosLeiloes(type, (response) => {
 			if (response.data.length > 0) {
 				$scope.leiloes = response.data;
-				$scope.message = type;		console.log($scope.leiloes[0]);
-
+				$scope.message = type;
 			} else {
 				$scope.leiloes = [];
 				$scope.message = `Não há leilões desse tipo ("${type}") no sistema.`;
@@ -175,13 +90,26 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 		});
 	}
 
+	function pageRouter(path) {
+		switch (path) {
+		case '/admin/validar':
+			carregarLeiloes('validationPendingAuctions');
+			break;
+		default:
+			break;
+		}
+	}
+
+	$scope.propertyName = 'limitDate';
+	$scope.reverse = false;
+
 	$scope.refresh = function refresh(type) {
 		switch (type) {
 		case 'validationPendingAuctions':
-			carregarLeiloesPendentes();
+			carregarLeiloes('validationPendingAuctions');
 			break;
 		case 'currentAuctions':
-			carregarLeiloesEmAndamento();
+			carregarLeiloes('currentAuctions');
 			break;
 		case undefined:
 			break;
@@ -195,10 +123,46 @@ ngapp.controller('adminController', function adminController($scope, $http, $loc
 		$scope.propertyName = propertyName;
 	};
 
-	$scope.carregarTodosLeiloes = function loadAll (type) {
+	$scope.carregarTodosLeiloes = function loadAll(type) {
 		$scope.auctionType = type;
 
 		carregarLeiloes(type);
+	};
+
+	$scope.retirada = function retirada(auctionID) {
+		const config = {
+			method: 'POST',
+			url: '/api/leilao/retirada',
+			qs: {
+				id: auctionID,
+			},
+			data: {
+				id: auctionID,
+			},
+		};
+
+		$scope.message = '';
+		$scope.err = '';
+
+		$scope.loading = {
+			message: 'Efetuando retirada de livro...',
+			state: true,
+		};
+		$http(config).then(function successCallback(response) {
+			$scope.leiloes = $scope.leiloes.filter(function filterID(item) {
+				return item._id !== auctionID;
+			});
+			alert('Leilão ' + auctionID + ' finalizado com sucesso.');
+			$scope.loading = {
+				state: false,
+			};
+		}, function failureCallback(response) {
+			console.log('failure', response);
+			$scope.error = response.statusText;
+			$scope.loading = {
+				state: false,
+			};
+		});
 	}
 
 	pageRouter($location.path());

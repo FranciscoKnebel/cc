@@ -117,3 +117,16 @@ footer.ui.inverted.segment {
 .relatorio.button {
 	margin-top: 7px;
 }
+
+.ui.banana.image {
+  display: inline-block;
+}
+
+.selectable.button {
+	font-size: 1.2rem;
+	cursor: pointer;
+	text-align: center !important;
+	background: #5EA42A;
+	color: rgba(255,255,255,.6);
+	font-weight: 900;
+}

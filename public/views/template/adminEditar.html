@@ -8,22 +8,34 @@
 	<h2 class="">{{message}}</h2>
 	<h2 class="">{{error}}</h2>
 
-	<div class="ui big buttons" style="margin-top: 0.5em;">
-		<a href="/app" class="ui red button">Voltar</a>
-		<a ng-click="refresh()" class="ui green button">Refresh</a>
-	</div>
-
-	<div class="ui big right floated buttons">
-		<button class="ui primary button" ng-click="ordenar('limitDate')"><i class="clock icon"></i></button>
-		<button class="ui green button" ng-click="ordenar('currentPrice')"><i class="sort content ascending icon"></i></button>
-		<button class="ui secondary button" ng-click="ordenar('book.title')"><i class="sort alphabet ascending icon"></i></button>
-	</div>
-
-	<div class="ui input">
-		<input type="search" ng-model="filter.book.title" placeholder="Filtrar por Título" aria-label="filtrar por título" />
-	</div>
-	<div class="ui input">
-		<input type="search" ng-model="filter.book.edition" placeholder="Filtrar por Edição" aria-label="filtrar por edição" />
+	<div class="ui stackable grid">
+		<div class="eight wide column">
+			<div class="ui big fluid buttons" style="margin-top: 0.5em;">
+				<a href="/app" class="ui red button">Voltar</a>
+				<a ng-click="refresh()" class="ui green button">Refresh</a>
+			</div>
+		</div>
+		<div class="eight wide column" ng-show="leiloes.length >= 1">
+			<div class="ui big three buttons">
+				<button class="ui primary button" ng-click="ordenar('limitDate')"><i class="clock icon"></i></button>
+				<button class="ui green button" ng-click="ordenar('currentPrice')"><i class="sort content ascending icon"></i></button>
+				<button class="ui secondary button" ng-click="ordenar('book.title')"><i class="sort alphabet ascending icon"></i></button>
+			</div>
+		</div>
+		<div class="sixteen wide column" ng-show="leiloes.length >= 1">
+			<div class="ui labeled fluid input">
+				<div class="ui blue label">
+					Título
+				</div>
+				<input type="search" ng-model="search.book.title" placeholder="Filtrar por Título" aria-label="filtrar por título" />
+			</div>
+			<div class="ui labeled fluid input">
+				<div class="ui blue label">
+					Edição
+				</div>
+				<input type="search" ng-model="search.book.edition" placeholder="Filtrar por Edição" aria-label="filtrar por edição" />
+			</div>
+		</div>
 	</div>
 
 	<div ng-if="leiloes.length >= 1" class="ui relaxed divided items" id="stickyContext">
@@ -41,7 +53,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="animate-repeat" ng-repeat="leilao in leiloes | orderBy:propertyName:reverse | filter: filter:strict" ng-init="$last && fireEvent()">
+				<tr class="animate-repeat" ng-repeat="leilao in leiloes | orderBy:propertyName:reverse | filter: search:strict" ng-init="$last && fireEvent()">
 					<td><img class="ui mini image" ng-src="{{leilao.book.images[0]}}"></td>
 					<td>{{leilao.book.title}}</td>
 					<td>{{leilao.book.author}}</td>

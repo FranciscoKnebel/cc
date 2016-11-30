@@ -93,8 +93,8 @@ clienteSchema.methods.updateState = function updateAuction(auction, type, oldtyp
 	const remove = this.removeAuction(auction, type, oldtype);
 
 	if (remove === false || remove === -1) {
-		console.log('Erro na remoção de leilão do usuário: ', remove);
-		return remove;
+		console.log('Erro na remoção de leilão do usuário ' + this._id + ': ', remove);
+		//return remove;
 	}
 
 	return this.addAuction(auction, type, newtype);
