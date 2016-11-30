@@ -40,19 +40,43 @@
 							<a class="ui green button" href="/leilao/buscar">Buscar Leilão</a>
 							<a class="ui secondary button" href="/leilao/listar">Listar Leilões</a>
 						</div>
+
 						<div class="ui container fluid" style="margin-right: 0 !important; margin-left: 0 !important;">
 							<div class="ui attached segment">
+								<div class="ui stackable three steps">
+									<a class="active step" href="/leilao/criar">
+										<i class="plus icon"></i>
+										<div class="content">
+											<div class="title">Criar Leilão</div>
+											<div class="description">Cadastre seus próprios livros!</div>
+										</div>
+									</a>
+									<a class="active step" href="/leilao/buscar">
+										<i class="search icon"></i>
+										<div class="content">
+											<div class="title">Buscar Leilão</div>
+											<div class="description">Encontre o livro procurado!</div>
+										</div>
+									</a>
+									<a class="active step" href="/leilao/listar">
+										<i class="list layout icon"></i>
+										<div class="content">
+											<div class="title">Listar Leilão</div>
+											<div class="description">Veja a lista de todos nossos leilões!</div>
+										</div>
+									</a>
+								</div>
+
 								<h1>
 									Olá, <%= user.name %>. Bem-vindo à Cooper Comics!
 								</h1>
 
-								<h2>Saldo em conta: <i>R$ <%= user.cash %>.00</i></h2>
+								<h2>Saldo em conta: R$ <%= user.cash %>.00 - <i>(<%= user.cash / 10 %>)*</i></h2>
 
 								<h2>
 									Leilões como Comprador:
 								</h2>
 								<div class="ui orange statistics">
-
 									<div class="ui statistic">
 									  <a class="value" href="/leilao/usuario/Comprador/currentAuctions">
 								    	<%= leiloes.Comprador.currentAuctions.length %>
@@ -140,6 +164,8 @@
 									  </a>
 									</div>
 								</div>
+								<br>
+								<span>* Comissão das vendas</span>
 							</div>
 						</div>
 					</div>
@@ -154,7 +180,7 @@
 								Bem-vindo à Cooper Comics!
 							</h1>
 
-							<h2>Saldo em conta: <i>R$ <%= user.cash %>.00</i></h2>
+							<h2>Saldo em conta: R$ <%= user.cash %>.00 - <i>(<%= user.cash / 10 %>.00)*</i></h2>
 
 							<h2>
 								Leilões como Comprador:
@@ -277,6 +303,7 @@
 									</div>
 								</a>
 							</div>
+							<span>* Comissão das vendas</span>
 						</div>
 					</div>
 				</div>
