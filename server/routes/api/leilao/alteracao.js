@@ -150,6 +150,7 @@ module.exports = function alteracao(app, modules) {
 				});
 
 				modules.Leilao.findById(auction._id, (err, leilao) => {
+					leilao.finishedDate = new Date();
 					leilao.state = newState;
 					leilao.save();
 					res.send(leilao);
