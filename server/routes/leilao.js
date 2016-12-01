@@ -1,7 +1,7 @@
 const request = require('request-promise');
 
 module.exports = function routes(app, modules) {
-	app.get('/leilao/criar', (req, res) => {
+	app.get('/leilao/criar', modules.isLoggedIn, (req, res) => {
 		if (req.user._type === 'Administrador') {
 			res.redirect('back');
 		} else {
@@ -9,7 +9,7 @@ module.exports = function routes(app, modules) {
 		}
 	});
 
-	app.post('/leilao/criar', (req, res) => {
+	app.post('/leilao/criar', modules.isLoggedIn, (req, res) => {
 		const leilao = new modules.Leilao();
 
 		leilao.newAuction(req.body, req.user._id, (auction) => {
@@ -23,15 +23,15 @@ module.exports = function routes(app, modules) {
 		});
 	});
 
-	app.get('/leilao/listar', (req, res) => {
+	app.get('/leilao/listar', modules.isLoggedIn, (req, res) => {
 		res.render('listarLeilao.ejs', { user: req.user, message: '' });
 	});
 
-	app.get('/leilao/buscar', (req, res) => {
+	app.get('/leilao/buscar', modules.isLoggedIn, (req, res) => {
 		res.render('buscarLeilao.ejs', { user: req.user, message: '' });
 	});
 
-	app.get('/leilao/editar/:id', modules.isAdmin, (req, res) => {
+	app.get('/leilao/editar/:id', modules.isLoggedIn, modules.isAdmin, (req, res) => {
 		modules.Leilao.findById(req.params.id).populate('book').exec((err, doc) => {
 			if (err) {
 				throw err;
@@ -40,7 +40,7 @@ module.exports = function routes(app, modules) {
 		});
 	});
 
-	app.get('/leilao/usuario/pagamento/:id', (req, res) => {
+	app.get('/leilao/usuario/pagamento/:id', modules.isLoggedIn, (req, res) => {
 		const options = {
 			uri: `${process.env.ROOT_URL}/api/leilao/buscar`,
 			json: true,
@@ -79,7 +79,7 @@ module.exports = function routes(app, modules) {
 		});
 	});
 
-	app.get('/leilao/usuario/:usertype/:type', (req, res) => {
+	app.get('/leilao/usuario/:usertype/:type', modules.isLoggedIn, (req, res) => {
 		if (req.user._type !== 'Cliente') {
 			res.redirect('back');
 			return;
@@ -117,7 +117,7 @@ module.exports = function routes(app, modules) {
 		}
 	});
 
-	app.get('/leilao/:id', (req, res) => {
+	app.get('/leilao/:id', modules.isLoggedIn, (req, res) => {
 		res.render('leilao.ejs', { user: req.user, message: '' });
 	});
 };

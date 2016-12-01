@@ -25,7 +25,7 @@ module.exports = function routes(app, dirname, passport) {
 
 	api(app, modules);
 
-	app.get('/app', (req, res) => {
+	app.get('/app', modules.isLoggedIn, (req, res) => {
 		if (req.user._type === 'Administrador') {
 			res.redirect('/admin');
 		} else {
@@ -53,7 +53,7 @@ module.exports = function routes(app, dirname, passport) {
 		}
 	});
 
-	app.get('/relatorios', (req, res) => {
+	app.get('/relatorios', modules.isLoggedIn, (req, res) => {
 		if (req.user._type === 'Administrador') {
 			res.redirect('/admin/relatorios');
 		} else {
