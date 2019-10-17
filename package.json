@@ -34,7 +34,7 @@
     "express-session": "^1.14.0",
     "helmet": "^2.1.2",
     "lodash": "^4.16.4",
-    "mongoose": "^4.5.9",
+    "mongoose": "^5.7.5",
     "mongoose-autopopulate": "^0.4.0",
     "mongoose-schema-extend": "^0.2.2",
     "mongoose-super": "0.0.3",
